@@ -74,7 +74,7 @@ class InviteController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $canEdit = true; // todo access автора проекта
+        $canEdit = $model->project->iniciator->id === $this->user->id;
         $canRequest = true; // todo может ли пользователь откликнуться // проверять 1. есть ли уже права на участие 2. роль пользователя ?
         return $this->render('view', [
             'model' => $model,

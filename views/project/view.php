@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
+/* @var $projectPartIndex string */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Проекты', 'url' => ['index']];
@@ -31,7 +32,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'name',
             'status.name',
-            'rating',
+            [
+                'attribute' => 'rating',
+                'value' => $model->rating.'%',
+            ],
             'about:ntext',
             'date_start:datetime',
             'date_end:datetime',
@@ -44,4 +48,5 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
 
+    <?= $projectPartIndex ?>
 </div>

@@ -4,13 +4,13 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Project;
+use app\models\ProjectPart;
 use yii\data\Sort;
 
 /**
- * ProjectSearch represents the model behind the search form of `app\models\Project`.
+ * ProjectPartSearch represents the model behind the search form of `app\models\ProjectPart`.
  */
-class ProjectSearch extends Project
+class ProjectPartSearch extends ProjectPart
 {
     /**
      * {@inheritdoc}
@@ -18,10 +18,8 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id', 'status_id', 'rating'], 'integer'],
-            [['name', 'about', 'date_start', 'date_end'], 'safe'],
-            [['finance'], 'number'],
-            [['invested'], 'boolean'],
+            [['id', 'project_id', 'part_id'], 'integer'],
+            [['ready'], 'boolean'],
         ];
     }
 
@@ -43,10 +41,11 @@ class ProjectSearch extends Project
      */
     public function search($params)
     {
-        $query = Project::find();
+        $query = ProjectPart::find();
+
 
         $sort = new Sort();
-        $sort->defaultOrder = ['id' => SORT_DESC];
+        $sort->defaultOrder = ['id' => SORT_ASC];
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -64,16 +63,10 @@ class ProjectSearch extends Project
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'status_id' => $this->status_id,
-            'rating' => $this->rating,
-            'finance' => $this->finance,
-            'invested' => $this->invested,
-            'date_start' => $this->date_start,
-            'date_end' => $this->date_end,
+            'project_id' => $this->project_id,
+            'part_id' => $this->part_id,
+            'ready' => $this->ready,
         ]);
-
-        $query->andFilterWhere(['ilike', 'name', $this->name])
-            ->andFilterWhere(['ilike', 'about', $this->about]);
 
         return $dataProvider;
     }

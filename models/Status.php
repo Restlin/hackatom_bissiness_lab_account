@@ -60,4 +60,13 @@ class Status extends \yii\db\ActiveRecord
             'name' => 'Наименование',
         ];
     }
+
+    public static function getList(): array {
+        $models = self::find()->orderBy('id')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    }
 }

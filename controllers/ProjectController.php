@@ -6,6 +6,7 @@ use Yii;
 use app\models\Project;
 use app\models\Status;
 use app\models\ProjectSearch;
+use app\models\ProjectPartSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -42,6 +43,18 @@ class ProjectController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'statusList' => Status::getList(),
+        ]);
+    }
+
+    private function renderProjectPartIndex(Project $project) {
+        $searchModel = new ProjectPartSearch();
+        $searchModel->project_id = $project->id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->renderPartial('/project-part/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -53,8 +66,10 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        $project = $this->findModel($id);
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $project,
+            'projectPartIndex' => $this->renderProjectPartIndex($project)
         ]);
     }
 

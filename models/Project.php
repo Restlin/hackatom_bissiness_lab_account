@@ -59,7 +59,7 @@ class Project extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Код',
             'name' => 'Наименование',
             'status_id' => 'Статус',
             'rating' => 'Рейтинг',
@@ -74,8 +74,8 @@ class Project extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes) {
         if($insert && !Yii::$app->user->isGuest) {
             ProjectService::createAuthorAccess($this, Yii::$app->user->getIdentity()->getUser());
+            ProjectService::createDefaultParts($this);
         }
-        ProjectService::createDefaultParts($this);
         parent::afterSave($insert, $changedAttributes);
     }
 

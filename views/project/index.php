@@ -7,6 +7,7 @@ use app\models\Project;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ProjectSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $statusList array */
 
 $this->title = 'Проекты';
 $this->params['breadcrumbs'][] = $this->title;
@@ -26,24 +27,26 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
             'id',
-            'name',
+            [
+                'attribute' => 'name',
+                'value' => function(Project $model) {
+                    return Html::a($model->name, ['view', 'id' => $model->id], ['data-pjax' => 0]);
+                },
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'status_id',
                 'value' => function(Project $model) {
                     return $model->status->name;
-                }
+                },
+                'filter' => $statusList
             ],
             'rating',
-            'about:ntext',
             'finance',
             'invested:boolean',
             'date_start:date',
             'date_end:date',
-
-            ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

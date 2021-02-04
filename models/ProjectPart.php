@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\services\ProjectService;
 
 /**
  * This is the model class for table "project_part".
@@ -41,13 +42,17 @@ class ProjectPart extends \yii\db\ActiveRecord
         ];
     }
 
+    public function afterSave($insert, $changedAttributes) {
+        ProjectService::recalcProject($this->project);
+    }
+
     /**
      * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'ИД',
             'project_id' => 'Проект',
             'part_id' => 'Раздел',
             'ready' => 'Готовность',

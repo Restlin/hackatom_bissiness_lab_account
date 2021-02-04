@@ -1,8 +1,9 @@
 <?php
-/* @var $this View */
 
 use yii\helpers\Html;
 use yii\web\View;
+
+/* @var $this View */
 
 $this->title = 'Вы успешно зарегистрировались!';
 ?>

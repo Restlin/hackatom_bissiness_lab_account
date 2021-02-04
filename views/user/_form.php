@@ -1,11 +1,12 @@
 <?php
 
+use app\models\User;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\ActiveForm;
 
-/* @var $this yii\web\View */
-/* @var $model app\models\User */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $this View */
+/* @var $model User */
 
 $this->title = $model->isNewRecord ? 'Создать' : 'Редактировать';
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];

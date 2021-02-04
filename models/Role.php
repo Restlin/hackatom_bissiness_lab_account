@@ -15,6 +15,12 @@ use Yii;
  */
 class Role extends \yii\db\ActiveRecord
 {
+    public const ADMIN = 1;
+    public const STAKEHOLDER = 2;
+    public const INICIATOR = 3;
+    public const CONSTUMER = 4;
+    public const ASSISTANT = 5;
+    public const CURATOR = 6;
     /**
      * {@inheritdoc}
      */

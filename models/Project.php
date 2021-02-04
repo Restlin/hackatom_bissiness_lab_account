@@ -24,6 +24,7 @@ use app\services\ProjectService;
  * @property ProjectPart[] $projectParts
  * @property ProjectRate[] $projectRates
  * @property Request[] $requests
+ * @property User $iniciator
  */
 class Project extends \yii\db\ActiveRecord
 {
@@ -136,5 +137,10 @@ class Project extends \yii\db\ActiveRecord
     public function getRequests()
     {
         return $this->hasMany(Request::class, ['project_id' => 'id']);
+    }
+
+    public function getIniciator()
+    {
+        return ProjectAccess::findOne(['project_id' => $this->id, 'role_id' => Role::INICIATOR])->user;
     }
 }

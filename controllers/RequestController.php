@@ -65,6 +65,7 @@ class RequestController extends Controller
     public function actionCreate()
     {
         $model = new Request();
+        $model->load(Yii::$app->request->get());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

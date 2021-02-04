@@ -1,20 +1,20 @@
 <?php
 
-use app\models\User;
+use app\models\Request;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
 /* @var $this View */
-/* @var $model User */
+/* @var $model Request */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Requests', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
 ?>
-<div class="user-view">
+<div class="request-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -33,12 +33,11 @@ YiiAsset::register($this);
         'model' => $model,
         'attributes' => [
             'id',
-            'surname',
-            'name',
-            'phone',
-            'email:email',
-            'firm',
-            'about:ntext',
+            'project_id',
+            'user_id',
+            'author_id',
+            'executor_id',
+            'comment:ntext',
         ],
     ]) ?>
 

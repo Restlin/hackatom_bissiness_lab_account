@@ -57,16 +57,29 @@ class RegistrationForm extends Model {
     public string $patronymic = '';
 
     /**
+     * @var string
+     */
+    public string $firm = '';
+
+    /**
+     * @var string
+     */
+    public string $about = '';
+
+    /**
      * Пользователь
      * @var User|null
      */
     private ?User $user = null;
+
 
     public function rules() {
         return [
             [['email', 'surname', 'name', 'password', 'password_confirm'], 'required'],
             [['email', 'surname', 'name', 'patronymic'], 'string', 'max' => 50],
             [['phone'], 'string', 'max' => 20],
+            [['firm'], 'string', 'max' => 100],
+            [['about'], 'string'],
             [['phone'], PhoneInputValidator::class],
             [['password'], 'string', 'min' => 6, 'max' => 50],
             [['password_confirm'], 'string'],
@@ -104,6 +117,8 @@ class RegistrationForm extends Model {
             'patronymic' => 'Отчество',
             'password' => 'Пароль',
             'password_confirm' => 'Повторить пароль',
+            'firm' => 'Организация',
+            'about' => 'О себе',
         ];
     }
 
@@ -138,6 +153,8 @@ class RegistrationForm extends Model {
         $user->password_hash = Yii::$app->security->generatePasswordHash($this->password);
         $user->email_code = str_pad(random_int(0, 999999), 6, 0, STR_PAD_LEFT);
         $user->email_code_unixtime = time();
+        $user->firm = $this->firm;
+        $user->about = $this->about;
         $user->save();
         return $user;
     }

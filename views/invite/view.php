@@ -1,20 +1,17 @@
 <?php
 
-use app\models\User;
 use yii\helpers\Html;
-use yii\web\View;
-use yii\web\YiiAsset;
 use yii\widgets\DetailView;
 
-/* @var $this View */
-/* @var $model User */
+/* @var $this yii\web\View */
+/* @var $model app\models\Invite */
 
-$this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
+$this->title = $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Invites', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
-YiiAsset::register($this);
+\yii\web\YiiAsset::register($this);
 ?>
-<div class="user-view">
+<div class="invite-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -23,7 +20,7 @@ YiiAsset::register($this);
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Вы уверены?',
+                'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
         ]) ?>
@@ -33,12 +30,10 @@ YiiAsset::register($this);
         'model' => $model,
         'attributes' => [
             'id',
-            'surname',
-            'name',
-            'phone',
-            'email:email',
-            'firm',
-            'about:ntext',
+            'project_id',
+            'author_id',
+            'date',
+            'comment:ntext',
         ],
     ]) ?>
 

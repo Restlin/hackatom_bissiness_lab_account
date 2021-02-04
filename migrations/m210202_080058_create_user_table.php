@@ -26,7 +26,8 @@ class m210202_080058_create_user_table extends Migration
             'pwd_reset_token' => $this->string(32)->null()->comment('Токен для сброса пароля'),
             'pwd_reset_token_unixtime' => $this->bigInteger()->null()->comment('Время жизни токена сброса пароля'),
             'active' => $this->boolean()->notNull()->defaultValue(false)->comment('Активирован'),
-            'isAdmin' => $this->boolean()->notNull()->defaultValue(false)->comment('Признак администратора'),
+            'firm' => $this->string(100)->null()->comment('Организация'),
+            'about' => $this->text()->null()->comment('О себе'),
         ]);
     }
 

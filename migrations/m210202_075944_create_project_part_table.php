@@ -14,8 +14,10 @@ class m210202_075944_create_project_part_table extends Migration
     {
         $this->createTable('{{%project_part}}', [
             'id' => $this->primaryKey(),
-            'project_id' => $this->integer(),
-            'part_id' => $this->integer(),
+            'project_id' => $this->integer()->notNull()->comment('Проект'),
+            'part_id' => $this->integer()->notNull()->comment('Раздел'),
+            'ready' => $this->boolean()->notNull()->defaultValue(false)->comment('Готовность')
+
         ]);
 
         $this->addForeignKey('fk_project_part_project_id', 'project_part', 'project_id', 'project', 'id', 'CASCADE', 'CASCADE');

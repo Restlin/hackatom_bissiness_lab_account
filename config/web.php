@@ -10,6 +10,7 @@ $cookiesParams = [
 ];
 $config = [
     'id' => 'hackatom',
+    'name' => 'Бизнес-лаб аккаунт',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'container' => $container,

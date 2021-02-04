@@ -29,19 +29,18 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             'name',
             'status.name',
             'rating',
             'about:ntext',
+            'date_start:datetime',
+            'date_end:datetime',
             'finance',
             [
                 'attribute' => 'invested',
                 'visible' => $model->invested !== null,
                 'format' => 'boolean'
             ],
-            'date_start',
-            'date_end',
         ],
     ]) ?>
 

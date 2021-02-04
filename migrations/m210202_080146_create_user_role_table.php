@@ -14,8 +14,8 @@ class m210202_080146_create_user_role_table extends Migration
     {
         $this->createTable('{{%user_role}}', [
             'id' => $this->primaryKey(),
-            'user_id' => $this->integer()->comment('Пользователь'),
-            'role_id' => $this->integer()->comment('Роль'),
+            'user_id' => $this->integer()->notNull()->comment('Пользователь'),
+            'role_id' => $this->integer()->notNull()->comment('Роль'),
         ]);
 
         $this->addForeignKey('fk_user_role_user_id', 'user_role', 'user_id', 'user', 'id', 'CASCADE', 'CASCADE');

@@ -1,4 +1,9 @@
 <?php
+
+/* @var $this View */
+
+use yii\web\View;
+
 $this->title = 'Восстановление пароля';
 ?>
 <div class="outer-conteiner">

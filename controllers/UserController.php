@@ -188,6 +188,7 @@ class UserController extends Controller {
                 }
             }
         }
+        return $this->redirect(['site/index']);
     }
 
     public function actionChangePwdValidate() {
@@ -199,6 +200,7 @@ class UserController extends Controller {
                 return ActiveForm::validate($model);
             }
         }
+        return $this->redirect(['site/index']);
     }
 
 }

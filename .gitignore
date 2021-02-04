@@ -31,5 +31,8 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+/runtime/
+/web/assets/
+
 
 .composer.lock

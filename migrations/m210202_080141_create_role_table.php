@@ -14,7 +14,7 @@ class m210202_080141_create_role_table extends Migration
     {
         $this->createTable('{{%role}}', [
             'id' => $this->primaryKey(),
-            'name' => $this->string(),
+            'name' => $this->string()->comment('Наименование'),
         ]);
 
         $this->batchInsert('role', ['name'], [

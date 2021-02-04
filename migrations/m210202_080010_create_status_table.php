@@ -24,6 +24,9 @@ class m210202_080010_create_status_table extends Migration
             ['бизнес-проект'], //готов для рассмотрения инвестора
             ['релиз'], //после решения инвестора
         ]);
+
+        $this->addForeignKey('fk_project_status_id', 'project', 'status_id', 'status', 'id', 'CASCADE', 'CASCADE');
+        $this->createIndex('idx_project_status_id', 'project','status_id');
     }
 
     /**

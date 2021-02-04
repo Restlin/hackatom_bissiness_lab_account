@@ -3,13 +3,14 @@
 namespace app\models;
 
 use Yii;
+use app\services\ProjectService;
 
 /**
  * This is the model class for table "project".
  *
  * @property int $id
  * @property string $name Комментарий
- * @property int $status Статус
+ * @property int $status_id Статус
  * @property int $rating Рейтинг
  * @property string|null $about Описание
  * @property float $finance Требуемые финансы
@@ -17,6 +18,7 @@ use Yii;
  * @property string $date_start Дата начала
  * @property string $date_end Дата конца
  *
+ * @property Status $status
  * @property Invite[] $invites
  * @property ProjectAccess[] $projectAccesses
  * @property ProjectPart[] $projectParts
@@ -39,9 +41,9 @@ class Project extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'status', 'date_start', 'date_end'], 'required'],
-            [['status', 'rating'], 'default', 'value' => null],
-            [['status', 'rating'], 'integer'],
+            [['name', 'status_id', 'date_start', 'date_end'], 'required'],
+            [['status_id', 'rating'], 'default', 'value' => null],
+            [['status_id', 'rating'], 'integer'],
             [['about'], 'string'],
             [['finance'], 'number'],
             [['invested'], 'boolean'],
@@ -58,8 +60,8 @@ class Project extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'name' => 'Комментарий',
-            'status' => 'Статус',
+            'name' => 'Наименование',
+            'status_id' => 'Статус',
             'rating' => 'Рейтинг',
             'about' => 'Описание',
             'finance' => 'Требуемые финансы',
@@ -67,6 +69,23 @@ class Project extends \yii\db\ActiveRecord
             'date_start' => 'Дата начала',
             'date_end' => 'Дата конца',
         ];
+    }
+
+    public function afterSave($insert, $changedAttributes) {
+        if($insert && !Yii::$app->user->isGuest) {
+            ProjectService::createAuthorAccess($this, Yii::$app->user->getIdentity()->getUser());
+        }
+        ProjectService::createDefaultParts($this);
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * Gets query for [[Status]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatus() {
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 
     /**

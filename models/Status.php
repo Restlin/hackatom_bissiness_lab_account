@@ -13,6 +13,26 @@ use Yii;
 class Status extends \yii\db\ActiveRecord
 {
     /**
+     * Черновик
+     */
+    public const DRAFT = 1;
+    /**
+     * Идея
+     */
+    public const IDEA = 2;
+    /**
+     * Концепция
+     */
+    public const CONCEPTION = 3;
+    /**
+     * Бизнес-проект
+     */
+    public const BUSINESS_PROJECT = 4;
+    /**
+     * Релиз
+     */
+    public const RELEASE = 5;
+    /**
      * {@inheritdoc}
      */
     public static function tableName()

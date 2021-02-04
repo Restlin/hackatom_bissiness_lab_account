@@ -43,6 +43,10 @@ AppAsset::register($this);
     } else {
         $user = Yii::$app->user->getIdentity()->getUser();
         $menuItems = [
+            ['label' => 'Объявления', 'url' => ['invite/index']],
+            ['label' => 'Проекты', 'url' => ['project/index']],
+            ['label' => 'Запросы', 'url' => ['request/index']],
+            ['label' => 'Файлы', 'url' => ['file/index']],
             [
                 'label' => $user->name . ' ' . $user->patronymic . ' ' . $user->surname,
                 'items' => [

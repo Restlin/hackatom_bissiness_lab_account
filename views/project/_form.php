@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
+use dosamigos\datepicker\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
@@ -14,13 +16,20 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'about')->textarea(['rows' => 6]) ?>
+    <?= $form->field($model, 'about')->widget(CKEditor::class, [
+        'options' => ['rows' => 6],
+        'preset' => 'basic'
+    ]) ?>
 
     <?= $form->field($model, 'finance')->textInput() ?>
 
-    <?= $form->field($model, 'date_start')->textInput() ?>
+    <?= $form->field($model, 'date_start')->widget(DatePicker::class, [
+        'language' => 'ru',
+    ]) ?>
 
-    <?= $form->field($model, 'date_end')->textInput() ?>
+    <?= $form->field($model, 'date_end')->widget(DatePicker::class, [
+        'language' => 'ru',
+    ]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

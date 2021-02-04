@@ -69,7 +69,8 @@ class ProjectController extends Controller
         $project = $this->findModel($id);
         return $this->render('view', [
             'model' => $project,
-            'projectPartIndex' => $this->renderProjectPartIndex($project)
+            'statuses' => Status::getList(),
+            'projectPartIndex' => $this->renderProjectPartIndex($project),
         ]);
     }
 

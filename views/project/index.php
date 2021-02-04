@@ -45,8 +45,12 @@ $this->params['breadcrumbs'][] = $this->title;
             'rating',
             'finance',
             'invested:boolean',
-            'date_start:date',
-            'date_end:date',
+            [
+                'label' => 'Сроки',
+                'value' => function(Project $model) {
+                    return $model->date_start.' - '.$model->date_end;
+                }
+            ],
         ],
     ]); ?>
 

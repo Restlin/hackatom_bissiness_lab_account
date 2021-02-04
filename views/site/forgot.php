@@ -1,7 +1,12 @@
 <?php
 
+use app\security\ForgotForm;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\web\View;
+
+/* @var $this View */
+/* @var $model ForgotForm */
 
 $this->title = 'Восстановление пароля';
 ?>

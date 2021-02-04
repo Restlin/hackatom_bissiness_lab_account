@@ -1,12 +1,12 @@
 <?php
-/* @var $this View */
-/* @var $form ActiveForm */
-/* @var $model RegistrationForm */
 
 use app\security\RegistrationForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 use yii\web\View;
+
+/* @var $this View */
+/* @var $model RegistrationForm */
 
 $this->title = 'Подтверждение email';
 ?>

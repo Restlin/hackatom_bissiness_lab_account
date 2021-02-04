@@ -1,9 +1,12 @@
 <?php
 
-/* @var $this yii\web\View */
+use yii\web\View;
 
-$this->title = '';
+/* @var $this View */
+
+$this->title = 'Главная';
 ?>
+
 <div class="site-index">
 
 </div>

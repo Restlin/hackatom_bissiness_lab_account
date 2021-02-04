@@ -1,10 +1,12 @@
 <?php
-/* @var $this yii\web\View */
-/* @var $form yii\bootstrap\ActiveForm */
-/* @var $model app\security\LoginForm */
 
+use app\security\LoginForm;
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
+use yii\web\View;
+
+/* @var $this View */
+/* @var $model LoginForm */
 
 $this->title = 'Сброс пароля';
 $template = '<fieldset><legend>{label}</legend>{input}</fieldset>{error}';

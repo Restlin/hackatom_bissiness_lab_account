@@ -33,3 +33,6 @@ tests/_support/_generated
 /.vagrant
 /runtime/
 /web/assets/
+
+
+.composer.lock

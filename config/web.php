@@ -2,11 +2,17 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
-
+$container = require __DIR__ . '/container.php';
+$cookiesParams = [
+    'httpOnly' => true,
+    'sameSite' => PHP_VERSION_ID >= 70300 ? \yii\web\Cookie::SAME_SITE_STRICT : null,
+    'secure' => !YII_ENV_DEV,
+];
 $config = [
     'id' => 'hackatom',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'container' => $container,
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
         '@npm'   => '@vendor/npm-asset',
@@ -20,18 +26,29 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\security\UserIdentity',
             'enableAutoLogin' => true,
+            'authTimeout' => 172800,
+            'absoluteAuthTimeout' => 2592000,
+            'identityCookie' => array_merge(['name' => '_identity'], $cookiesParams),
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'messageConfig' => [
+                'from' => ['it-animal@yandex.ru' => 'Почта'],
+            ],
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.yandex.ru',
+                'username' => 'it-animal@yandex.ru',
+                'password' => '1TAn1mal2020',
+                'port' => 465,
+                'encryption' => 'ssl',
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

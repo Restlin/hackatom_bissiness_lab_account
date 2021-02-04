@@ -18,7 +18,7 @@ class UserSearch extends User
     {
         return [
             [['id', 'email_code_unixtime', 'pwd_reset_token_unixtime'], 'integer'],
-            [['surname', 'name', 'patronymic', 'phone', 'email', 'no_confirm_email', 'email_code', 'password_hash', 'pwd_reset_token'], 'safe'],
+            [['surname', 'name', 'patronymic', 'phone', 'email', 'no_confirm_email', 'email_code', 'password_hash', 'pwd_reset_token', 'firm', 'about'], 'safe'],
             [['active'], 'boolean'],
         ];
     }
@@ -73,7 +73,9 @@ class UserSearch extends User
             ->andFilterWhere(['ilike', 'no_confirm_email', $this->no_confirm_email])
             ->andFilterWhere(['ilike', 'email_code', $this->email_code])
             ->andFilterWhere(['ilike', 'password_hash', $this->password_hash])
-            ->andFilterWhere(['ilike', 'pwd_reset_token', $this->pwd_reset_token]);
+            ->andFilterWhere(['ilike', 'pwd_reset_token', $this->pwd_reset_token])
+            ->andFilterWhere(['ilike', 'firm', $this->firm])
+            ->andFilterWhere(['ilike', 'about', $this->about]);
 
         return $dataProvider;
     }

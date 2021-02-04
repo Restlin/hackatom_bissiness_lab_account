@@ -24,7 +24,7 @@ class m210204_102345_create_invite_table extends Migration
         $this->createIndex('idx_invite_project_id', 'invite', 'project_id');
 
         $this->addForeignKey('fk_invite_author_id', 'invite', 'author_id', 'user', 'id', 'CASCADE', 'CASCADE');
-        $this->createIndex('idx_invite_author_id', 'rinvite', 'author_id');
+        $this->createIndex('idx_invite_author_id', 'invite', 'author_id');
     }
 
     /**

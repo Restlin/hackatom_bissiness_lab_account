@@ -21,6 +21,10 @@ use Yii;
  * @property string|null $pwd_reset_token Токен для сброса пароля
  * @property int|null $pwd_reset_token_unixtime Время жизни токена сброса пароля
  * @property bool $active Активирован
+ * @property string|null $firm Организация
+ * @property string|null $about О себе
+ *
+ * @property bool $isAdmin
  */
 class User extends \yii\db\ActiveRecord {
 
@@ -40,6 +44,8 @@ class User extends \yii\db\ActiveRecord {
             [['email_code_unixtime', 'pwd_reset_token_unixtime'], 'integer'],
             [['active'], 'boolean'],
             [['surname', 'name', 'patronymic', 'email', 'no_confirm_email'], 'string', 'max' => 50],
+            [['firm'], 'string', 'max' => 100],
+            [['about'], 'string'],
 
             [['phone'], 'filter', 'filter' => fn($value) => $value ?: null],
             [['phone'], 'string', 'max' => 20],
@@ -71,7 +77,14 @@ class User extends \yii\db\ActiveRecord {
             'pwd_reset_token' => 'Токен для сброса пароля',
             'pwd_reset_token_unixtime' => 'Время жизни токена сброса пароля',
             'active' => 'Активирован',
+            'firm' => 'Организация',
+            'about' => 'О себе',
         ];
+    }
+
+    public function getIsAdmin(): bool
+    {
+        return (bool) UserRole::find()->andWhere(['user_id' => $this->id, 'role_id' => Role::ADMIN])->count();
     }
 
 }

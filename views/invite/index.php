@@ -7,7 +7,7 @@ use yii\grid\GridView;
 /* @var $searchModel app\models\InviteSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Invites';
+$this->title = 'Объявления';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invite-index">
@@ -15,10 +15,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Create Invite', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать объявление', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

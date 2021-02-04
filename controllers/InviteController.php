@@ -2,18 +2,29 @@
 
 namespace app\controllers;
 
-use Yii;
 use app\models\Invite;
 use app\models\InviteSearch;
-use yii\web\Controller;
-use yii\web\NotFoundHttpException;
+use app\models\User;
+use Yii;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
+use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * InviteController implements the CRUD actions for Invite model.
  */
 class InviteController extends Controller
 {
+    private ?User $user = null;
+
+    public function __construct($id, $module,
+                                $config = []) {
+        $this->user = Yii::$app->user->getIsGuest() ? null : Yii::$app->user->identity->getUser();
+        parent::__construct($id, $module, $config);
+    }
     /**
      * {@inheritdoc}
      */
@@ -24,6 +35,16 @@ class InviteController extends Controller
                 'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::class,
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'new-request'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -52,9 +73,31 @@ class InviteController extends Controller
      */
     public function actionView($id)
     {
+        $model = $this->findModel($id);
+        $canEdit = true; // todo access автора проекта
+        $canRequest = true; // todo может ли пользователь откликнуться // проверять 1. есть ли уже права на участие 2. роль пользователя ?
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $model,
+            'canEdit' => $canEdit,
+            'canRequest' => $canRequest,
         ]);
+    }
+
+    public function actionNewRequest($id)
+    {
+        $model = $this->findModel($id);
+        $canRequest = true; // todo может ли пользователь откликнуться // проверять 1. есть ли уже права на участие 2. роль пользователя ?
+        if ($canRequest) {
+            $params = [
+                'Request[project_id]' => $model->project_id,
+                'Request[user_id]' => $this->user->id,
+                'Request[author_id]' => $this->user->id,
+                'Request[executor_id]' => $model->project->iniciator->id,
+            ];
+            $this->redirect(ArrayHelper::merge(['request/create'], $params));
+        } else {
+            throw new ForbiddenHttpException("Вы не можете подать заявку на участие в этом проекте!");
+        }
     }
 
     /**

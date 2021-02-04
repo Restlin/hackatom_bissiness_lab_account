@@ -34,6 +34,8 @@ class m210202_080010_create_status_table extends Migration
      */
     public function safeDown()
     {
+        $this->dropIndex('idx_project_status_id', 'project');
+        $this->dropForeignKey('fk_project_status_id', 'project');
         $this->dropTable('{{%status}}');
     }
 }

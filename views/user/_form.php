@@ -25,32 +25,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-        <?= $form->field($model, 'patronymic')->textInput(['maxlength' => true]) ?>
-
         <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'no_confirm_email')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'email_code')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'email_code_unixtime')->textInput() ?>
-
-        <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pwd_reset_token')->textInput(['maxlength' => true]) ?>
-
-        <?= $form->field($model, 'pwd_reset_token_unixtime')->textInput() ?>
-
-        <?= $form->field($model, 'active')->checkbox() ?>
 
         <?= $form->field($model, 'firm')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'about')->textarea(['rows' => 6]) ?>
 
         <div class="form-group">
-            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+            <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
         </div>
 
         <?php ActiveForm::end(); ?>

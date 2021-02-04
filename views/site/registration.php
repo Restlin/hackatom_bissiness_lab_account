@@ -30,8 +30,10 @@ $this->title = 'Регистрация';
 
     <?= $form->field($model, 'surname')->textInput()->label($model->getAttributeLabel('surname') . ' *') ?>
     <?= $form->field($model, 'name')->textInput()->label($model->getAttributeLabel('name') . ' *') ?>
-    <?= $form->field($model, 'patronymic')->textInput() ?>
     <?= $form->field($model, 'email')->textInput()->label('Email *') ?>
+
+    <?= $form->field($model, 'firm')->textInput() ?>
+    <?= $form->field($model, 'about')->textarea(['rows' => 6]) ?>
 
     <?=
     $form->field($model, 'phone')->widget(PhoneInput::class, [

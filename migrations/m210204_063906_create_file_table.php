@@ -39,6 +39,6 @@ class m210204_063906_create_file_table extends Migration
      */
     public function safeDown()
     {
-        $this->dropTable('{{%project_file}}');
+        $this->dropTable('{{%file}}');
     }
 }

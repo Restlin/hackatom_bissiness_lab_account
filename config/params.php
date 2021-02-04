@@ -10,4 +10,5 @@ return [
         'active' => true,
         'password' => 'xt,ehfirf',
     ],
+    'tokenLive' => 600,
 ];

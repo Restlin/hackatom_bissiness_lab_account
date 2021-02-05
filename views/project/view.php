@@ -9,6 +9,7 @@ use yii\bootstrap\Progress;
 /* @var $statuses array */
 /* @var $projectPartIndex string */
 /* @var $projectAccessIndex string */
+/* @var $projectRateIndex string */
 /* @var $requestIndex string */
 
 $this->title = $model->name;
@@ -40,7 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  ],
                  [
                      'label' => 'Оценки',
-                     'content' => 'Оценки',
+                     'content' => $projectRateIndex,
                      'headerOptions' => ['role' => 'presentation'],
                  ],
              ],

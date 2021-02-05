@@ -9,6 +9,8 @@ use app\models\Status;
 use app\models\ProjectSearch;
 use app\models\ProjectPartSearch;
 use app\models\ProjectAccessSearch;
+use app\models\ProjectRateSearch;
+use app\models\ProjectRate;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -71,6 +73,19 @@ class ProjectController extends Controller
         ]);
     }
 
+    private function renderProjectRateIndex(Project $project) {
+        $searchModel = new ProjectRateSearch();
+        $searchModel->project_id = $project->id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->renderPartial('/project-rate/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'canRate' => ProjectRate::find()->andWhere(['project_id' => $project->id, 'user_id' => Yii::$app->user->id])->one() ? false : true,
+            'rateAvg' => ProjectRate::find()->andWhere(['project_id' => $project->id])->average('rate')
+        ]);
+    }
+
     private function renderRequestIndex(Project $project) {
         $searchModel = new RequestSearch();
         $searchModel->project_id = $project->id;
@@ -95,6 +110,7 @@ class ProjectController extends Controller
             'model' => $project,
             'statuses' => Status::getList(),
             'projectPartIndex' => $this->renderProjectPartIndex($project),
+            'projectRateIndex' => $this->renderProjectRateIndex($project),
             'projectAccessIndex' => $this->renderProjectAccessIndex($project),
             'requestIndex' => $this->renderRequestIndex($project),
         ]);

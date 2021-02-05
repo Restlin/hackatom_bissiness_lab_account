@@ -14,7 +14,7 @@ use yii\helpers\Html;
                 <span><?= $model->user->firm ?></span>
             </div>
             <div class="card__head-item">
-                <?php if ($model->role_id !== Role::ASSISTANT): ?>
+                <?php if ($model->role_id === Role::ASSISTANT): ?>
                 <?= Html::a('<span class="glyphicon glyphicon-remove " style="color:currentColor" aria-hidden="true"></span>', ['project-access/delete', 'id' => $model->id], ['class' => 'myButton myButton--white']) ?>
                 <?php else: ?>
                 <div class="card__head-item">
@@ -34,8 +34,8 @@ use yii\helpers\Html;
                 </div>
                 <p class="card__label"><?= UserHelper::fioLink($model->user); ?></p>
                 <!--                            <p class="card__additional">email: <span>Bober2145@yandex.ru</span></p>-->
-                <p class="card__additional">Телефон: <span><?= $model->user->phone ?></span></p>
-                <p class="card__additional">Роль пользователя: <span><?= $model->role->name ?></span></p>
+                <!--<p class="card__additional">Телефон: <span><?= $model->user->phone ?></span></p> !-->
+                <p class="card__additional">Роль: <span> <?= $model->role->name ?></span></p>
             </div>
 
             <div class="card__textWrapper">

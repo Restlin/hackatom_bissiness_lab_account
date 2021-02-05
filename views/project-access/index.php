@@ -18,9 +18,6 @@ use yii\widgets\Pjax;
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'item'],
         'itemView' => 'item_view',
-        /*'itemView' => function ($model, $key, $index, $widget) {
-            return Html::a(Html::encode($model->id), ['view', 'id' => $model->id]);
-        },*/
     ]) ?>
 
     <?php Pjax::end(); ?>

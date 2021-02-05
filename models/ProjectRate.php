@@ -34,7 +34,8 @@ class ProjectRate extends \yii\db\ActiveRecord
         return [
             [['project_id', 'user_id', 'rate'], 'required'],
             [['project_id', 'user_id', 'rate'], 'default', 'value' => null],
-            [['project_id', 'user_id', 'rate'], 'integer'],
+            [['project_id', 'user_id'], 'integer'],
+            [['rate'], 'number'],
             [['comment'], 'string'],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
@@ -50,7 +51,7 @@ class ProjectRate extends \yii\db\ActiveRecord
             'id' => 'ID',
             'project_id' => 'Проект',
             'user_id' => 'Пользователь',
-            'rate' => 'Rate',
+            'rate' => 'Рейтинг',
             'comment' => 'Комментарий',
         ];
     }

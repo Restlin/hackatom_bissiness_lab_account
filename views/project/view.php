@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <div class="wrapper">
         <?= \yii\bootstrap\Tabs::widget([
                 'options' => ['class' => 'nav nav-tabs nav-tabs-custom'],
+                 'tabContentOptions' => ['class' => 'content'],
              'items' => [
                  [
                      'label' => 'Информация',

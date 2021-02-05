@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Invite;
 use app\models\InviteSearch;
+use app\models\Project;
 use app\models\User;
 use Yii;
 use yii\filters\AccessControl;
@@ -41,7 +42,7 @@ class InviteController extends Controller
                 'class' => AccessControl::class,
                 'rules' => [
                     [
-                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'new-request'],
+                        'actions' => ['index', 'view', 'create', 'update', 'delete', 'new-request', 'autocreate'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -93,11 +94,32 @@ class InviteController extends Controller
                 'Request[user_id]' => $this->user->id,
                 'Request[author_id]' => $this->user->id,
                 'Request[executor_id]' => $model->project->iniciator->id,
+                'User[email]' => $this->user->email,
             ];
             $this->redirect(ArrayHelper::merge(['request/create'], $params));
         } else {
             throw new ForbiddenHttpException("Вы не можете подать заявку на участие в этом проекте!");
         }
+    }
+
+    public function actionAutocreate($projectId)
+    {
+        $project = Project::findOne($projectId);
+        if (!$project) {
+            throw new NotFoundHttpException('Проект не найден!');
+        }
+        $model = new Invite();
+        $model->project_id = $project->id;
+        $model->author_id = $project->iniciator->id;
+        $model->date = date('d.m.Y');
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('_form', [
+            'model' => $model,
+        ]);
     }
 
     /**

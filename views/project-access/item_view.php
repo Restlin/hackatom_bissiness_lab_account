@@ -6,7 +6,6 @@ use yii\helpers\Html;
 /* @var $model ProjectAccess */
 ?>
 
-<div class="myGridProject">
     <div class="card">
         <div class="card__head">
             <div class="card__head-item">
@@ -47,4 +46,3 @@ use yii\helpers\Html;
             </div>
         </div>
     </div>
-</div>

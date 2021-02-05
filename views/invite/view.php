@@ -21,22 +21,28 @@ YiiAsset::register($this);
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php if ($canEdit): ?>
-    <p>
-        <?= Html::a('Редактировать', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
+
+        <p class="content__button-wrapper">
+            &nbsp;
+            <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
+            &nbsp;
+            <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+                'class' => 'myButton myButton--red',
+                'data' => [
+                    'confirm' => 'Вы уверены, что хотите удалить?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+        </p>
+
     <?php endif; ?>
 
     <?php if ($canRequest): ?>
-    <p>
-        <?= Html::a('Присоединиться', ['new-request', 'id' => $model->id], ['class' => 'btn btn-warning']) ?>
-    </p>
+
+        <p class="content__button-wrapper">
+            &nbsp;
+            <?= Html::a('Присоединиться к проекту', ['new-request', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
+        </p>
     <?php endif; ?>
 
     <?= DetailView::widget([

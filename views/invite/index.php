@@ -1,7 +1,6 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\InviteSearch */
@@ -12,27 +11,13 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="invite-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Создать объявление', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'id',
-            'project_id',
-            'author_id',
-            'date',
-            'comment:ntext',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
+        'layout' => "\n{items}\n{pager}",
+        'itemOptions' => ['class' => 'card'],
+        'options' => ['class' => 'myGridProject'],
+        'itemView' => 'itemView',
+    ]) ?>
 
 </div>

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\models\RequestSearch;
 use Yii;
 use app\models\Project;
 use app\models\Status;
@@ -58,6 +59,17 @@ class ProjectController extends Controller
         ]);
     }
 
+    private function renderRequestIndex(Project $project) {
+        $searchModel = new RequestSearch();
+        $searchModel->project_id = $project->id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        return '';
+        return $this->renderPartial('/request/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Project model.
      * @param integer $id
@@ -71,6 +83,7 @@ class ProjectController extends Controller
             'model' => $project,
             'statuses' => Status::getList(),
             'projectPartIndex' => $this->renderProjectPartIndex($project),
+            'requestIndex' => $this->renderRequestIndex($project),
         ]);
     }
 

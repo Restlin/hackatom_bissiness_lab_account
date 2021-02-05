@@ -13,31 +13,48 @@ use yii\widgets\ListView;
 
 ?>
 
-        <div class="card__body card__notHEAD">
-            <div class="card__info">
-                <div class="card__wrapperAvatar">
-                    <div class="card__avatar">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/American_Beaver.jpg"
-                             alt="">
-                    </div>
-                </div>
-                <p class="card__label">
-                    <?= Html::a($model->project->name, ['/project/view', 'id' => $model->project_id]) ?>
-                </p>
-            </div>
-            <div class="card__info card__info--big">
-                <p class="card__additional">Инициатор: &nbsp; <span><?= UserHelper::fioLink($model->project->iniciator) ?></span></p>
-            </div>
-            <div class="card__textWrapper">
-                <p>Комментарий:</p>
-                <div>
-                    <?= $model->comment ?>
-                </div>
-            </div>
-            <div class="card__buttons">
-                <br/>
-                <?= Html::a('Принять', ['execute', 'id' => $model->id, 'role' => Role::ASSISTANT], ['class' => 'myButton myButton--green']) ?>
-                <?= Html::a('Отклонить', ['execute', 'id' => $model->id, 'role' => false], ['class' => 'myButton myButton--red']) ?>
+
+
+<div class="card__head card__head--center">
+    <div class="card__head-item">
+        <span>Хочет присоединится</span>
+    </div>
+</div>
+<div class="card__body ">
+    <div class="card__info not__margin">
+        <div class="card__wrapperAvatar">
+            <div class="card__avatar">
+                <?php
+                $image = stream_get_contents($model->user->image);
+                echo Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+                ?>
             </div>
         </div>
+        <p class="card__label">
+            <?= UserHelper::fioLink($model->user) ?>
+        </p>
+    </div>
+    <div class="card__info card__info card__to">
+        <p ><span>хочет присоединится к проекту:</span> &nbsp; <b><?= Html::a($model->project->name, ['/project/view', 'id' => $model->project_id]) ?></b></p>
+    </div>
+
+    <div class="card__textWrapper">
+        <p>Запрос:</p>
+        <div>
+            <?= $model->comment ?>
+        </div>
+    </div>
+    <br>
+    <div class="card__buttons">
+        <br/>
+        <?= Html::a('Принять', ['execute', 'id' => $model->id, 'role' => Role::ASSISTANT], ['class' => 'myButton myButton--green']) ?>
+        <?= Html::a('Отклонить', ['execute', 'id' => $model->id, 'role' => false], ['class' => 'myButton myButton--red']) ?>
+    </div>
+</div>
+
+
+
+
+
+
 

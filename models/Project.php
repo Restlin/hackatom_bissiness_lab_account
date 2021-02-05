@@ -17,6 +17,7 @@ use app\services\ProjectService;
  * @property bool|null $invested Поддержка инвесторами
  * @property string $date_start Дата начала
  * @property string $date_end Дата конца
+ * @property string|null $image
  *
  * @property Status $status
  * @property Invite[] $invites
@@ -51,6 +52,7 @@ class Project extends \yii\db\ActiveRecord
             [['date_start', 'date_end'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['name'], 'unique'],
+            [['image'], 'string'],
         ];
     }
 
@@ -69,6 +71,7 @@ class Project extends \yii\db\ActiveRecord
             'invested' => 'Поддержка инвесторами',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата конца',
+            'image' => 'Аватар',
         ];
     }
 

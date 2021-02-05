@@ -12,6 +12,7 @@ use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
+use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
 /**
@@ -100,8 +101,14 @@ class UserController extends Controller {
      */
     public function actionCreate() {
         $model = new User();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            $image = UploadedFile::getInstance($model, 'image');
+            if ($image) {
+                $model->image=file_get_contents($image->tempName);
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
         return $this->render('_form', [
             'model' => $model,
@@ -120,8 +127,14 @@ class UserController extends Controller {
         if ($model->id != $this->user->id && !$model->isAdmin) {
             throw new ForbiddenHttpException('У Вас нет доступа к данному профилю!');
         }
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $image = UploadedFile::getInstance($model, 'image');
+            if ($image) {
+                $model->image=file_get_contents($image->tempName);
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
         return $this->render('_form', [
             'model' => $model,

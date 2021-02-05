@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php $form = ActiveForm::begin(); ?>
 
+        <?= $form->field($model, 'image')->fileInput() ?>
+
         <?= $form->field($model, 'surname')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

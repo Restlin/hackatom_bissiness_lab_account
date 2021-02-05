@@ -77,8 +77,10 @@ AppAsset::register($this);
 
                             <?php
                                 if ($user->image) {
-                                    $image = stream_get_contents($user->image);
-                                    echo Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+                                    $image = $user->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($user->image)) : '';
+                                    if ($image) {
+                                        echo Html::img($image, ['style' => '...']);
+                                    }
                                 }
                             ?>
                         <?= Html::endTag('a'); ?>

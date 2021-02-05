@@ -37,8 +37,12 @@ YiiAsset::register($this);
                 'attribute'=>'image',
                 'format' => 'raw',
                 'value' => function($data) {
-                    $image = stream_get_contents($data->image);
-                    return Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+                    $image = $data->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($data->image)) : '';
+                    if ($image) {
+                        return Html::img($image, ['style' => '...']);
+
+                    }
+                    return '';
                 },
             ],
             'surname',

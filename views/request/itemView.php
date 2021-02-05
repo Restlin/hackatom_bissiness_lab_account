@@ -25,8 +25,10 @@ use yii\widgets\ListView;
         <div class="card__wrapperAvatar">
             <div class="card__avatar">
                 <?php
-                $image = stream_get_contents($model->user->image);
-                echo Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+                    $image = $model->user->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($model->user->image)) : '';
+                    if ($image) {
+                        echo Html::img($image, ['style' => '...']);
+                    }
                 ?>
             </div>
         </div>

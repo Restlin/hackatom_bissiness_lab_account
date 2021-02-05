@@ -11,7 +11,7 @@ use yii\web\View;
 
 ?>
 
-    <div class="content">
+
 
         <p class="content__button-wrapper">
             <?= Html::a('PDF', ['view', 'id' => $model->id], ['class' => 'myButton myButton--red']) ?>
@@ -76,4 +76,3 @@ use yii\web\View;
             </div>
         </div>
 
-    </div>

@@ -15,12 +15,13 @@ use yii\helpers\Html;
             </div>
             <div class="card__head-item">
                 <?php if ($model->role_id === Role::ASSISTANT): ?>
-                <?= Html::a('<span class="glyphicon glyphicon-remove " style="color:currentColor" aria-hidden="true"></span>', ['project-access/delete', 'id' => $model->id], ['class' => 'myButton myButton--white']) ?>
+                <?= Html::a('<span class="glyphicon glyphicon-remove " style="color:currentColor" aria-hidden="true"></span>', ['project-access/delete', 'id' => $model->id], ['class' => 'myButton myButton--white', 'data' => [
+                        'confirm' => 'Вы уверены, что хотите удалить?',
+                        'method' => 'post',
+                    ],]) ?>
                 <?php else: ?>
-                <div class="card__head-item">
                     <span>Email</span>
                     <span><?= $model->user->email ?></span>
-                </div>
                 <?php endif; ?>
             </div>
         </div>

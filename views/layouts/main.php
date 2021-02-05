@@ -58,9 +58,9 @@ AppAsset::register($this);
                     <li class="header__nav-item">
                         <?= Html::a('Запросы', ['request/index']) ?>
                     </li>
-                    <li class="header__nav-item">
+                    <!--<li class="header__nav-item">
                         <?= Html::a('Файлы', ['file/index']) ?>
-                    </li>
+                    </li>!-->
                     <li class="header__nav-item header__exit header__nav-item--light">
                         <?= Html::a('Настройки', ['user/view', 'id' => $user->id]) ?>
                     </li>

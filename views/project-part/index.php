@@ -25,10 +25,6 @@ use app\models\ProjectPart;
                     return $model->part->name;
                 }
             ],
-            [
-                'label' => 'Тут будут файлы',
-                'value' => 'Пока ничего'
-            ],
             'content:raw',
             'ready:boolean',
 

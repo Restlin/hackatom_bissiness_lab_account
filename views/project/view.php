@@ -8,6 +8,7 @@ use yii\bootstrap\Progress;
 /* @var $model app\models\Project */
 /* @var $statuses array */
 /* @var $projectPartIndex string */
+/* @var $requestIndex string */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Проекты', 'url' => ['index']];
@@ -16,60 +17,33 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы уверены, что хотите удалить проект?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
-    <?php
-
-        echo Html::tag('div', 'Рейтинг развития: '. $model->rating.'%', ['style' => 'text-align: center; font-size: 18pt;']);
-            // striped animated
-        echo Progress::widget([
-            'percent' => $model->rating,
-            'barOptions' => ['class' => 'progress-bar-success'],
-            'options' => ['class' => 'active progress-striped', 'style' => 'margin-bottom: 5px;']
-        ]);
-    ?>
-    <div style="margin-bottom: 10px; overflow:auto;">
-        <?php
-            foreach($statuses as $code => $status) {
-                echo Html::tag('div', $status, [
-                    'style' => 'width:19%; margin-right: 1%; text-align: center; float:left;',
-                    'class' => $model->status_id >= $code ? 'btn-info' : 'btn-secondary'
-                ]);
-            }
-        ?>
+    <div class="wrapper">
+        <?= \yii\bootstrap\Tabs::widget([
+                'options' => ['class' => 'nav nav-tabs nav-tabs-custom'],
+             'items' => [
+                 [
+                     'label' => 'Информация',
+                     'content' => $this->render('info', ['model' => $model, 'statuses' => $statuses]),
+                     'active' => true,
+                     'headerOptions' => ['role' => 'presentation'],
+                 ],
+                 [
+                     'label' => 'Разделы',
+                     'content' => $projectPartIndex,
+                     'headerOptions' => ['role' => 'presentation'],
+                 ],
+                 [
+                     'label' => 'Команда',
+                     'content' => 'Команда',
+                     'headerOptions' => ['role' => 'presentation'],
+                 ],
+                 [
+                     'label' => 'Оценки',
+                     'content' => 'Оценки',
+                     'headerOptions' => ['role' => 'presentation'],
+                 ],
+             ],
+         ]); ?>
     </div>
 
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'label' => 'Период',
-                'value' => $model->date_start.' - '.$model->date_end
-            ],
-            [
-                'attribute' => 'finance',
-                'value' => $model->finance.' руб.'
-            ],
-            [
-                'attribute' => 'invested',
-                'visible' => $model->invested !== null,
-                'format' => 'boolean'
-            ],
-            'about:raw',
-        ],
-    ]) ?>
-
-    <?= $projectPartIndex ?>
 </div>

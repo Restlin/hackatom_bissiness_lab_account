@@ -35,4 +35,4 @@ tests/_support/_generated
 /web/assets/
 
 
-.composer.lock
+composer.lock

@@ -17,10 +17,8 @@ use yii\helpers\Html;
                 <?php if ($model->role_id !== Role::ASSISTANT): ?>
                 <?= Html::a('<span class="glyphicon glyphicon-remove " style="color:currentColor" aria-hidden="true"></span>', ['project-access/delete', 'id' => $model->id], ['class' => 'myButton myButton--white']) ?>
                 <?php else: ?>
-                <div class="card__head-item">
                     <span>Email</span>
                     <span><?= $model->user->email ?></span>
-                </div>
                 <?php endif; ?>
             </div>
         </div>

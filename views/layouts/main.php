@@ -91,14 +91,16 @@ AppAsset::register($this);
     </div>
 
 </header>
-<div class="container">
+
     <section >
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+        <div class="wrapper">
+            <?= Breadcrumbs::widget([
+                'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
+            ]) ?>
+            <?= $content ?>
+        </div>
     </section>
-</div>
+
 
 <?php $this->endBody() ?>
 </body>

@@ -42,8 +42,19 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'filter' => $statusList
             ],
-            'rating',
-            'finance',
+            [
+                'attribute' => 'rating',
+                'value' => function(Project $model) {
+                    return $model->rating.'%';
+                },
+            ],
+            [
+                'attribute' => 'finance',
+                'value' => function(Project $model) {
+                    return $model->finance;
+                },
+                'format' => 'decimal',
+            ],
             'invested:boolean',
             [
                 'label' => 'Сроки',

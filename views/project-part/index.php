@@ -29,6 +29,7 @@ use app\models\ProjectPart;
                 'label' => 'Тут будут файлы',
                 'value' => 'Пока ничего'
             ],
+            'content:raw',
             'ready:boolean',
 
             [

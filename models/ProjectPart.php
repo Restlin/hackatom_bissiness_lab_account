@@ -11,6 +11,7 @@ use app\services\ProjectService;
  * @property int $id
  * @property int $project_id Проект
  * @property int $part_id Раздел
+ * @property string $content Контент
  * @property bool $ready Готовность
  *
  * @property File[] $files
@@ -37,6 +38,7 @@ class ProjectPart extends \yii\db\ActiveRecord
             [['project_id', 'part_id'], 'default', 'value' => null],
             [['project_id', 'part_id'], 'integer'],
             [['ready'], 'boolean'],
+            [['content'], 'string'],
             [['part_id'], 'exist', 'skipOnError' => true, 'targetClass' => Part::class, 'targetAttribute' => ['part_id' => 'id']],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
         ];
@@ -55,6 +57,7 @@ class ProjectPart extends \yii\db\ActiveRecord
             'id' => 'ИД',
             'project_id' => 'Проект',
             'part_id' => 'Раздел',
+            'content' => 'Содержание',
             'ready' => 'Готовность',
         ];
     }

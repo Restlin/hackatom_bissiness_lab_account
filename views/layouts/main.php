@@ -1,14 +1,14 @@
 <?php
 
-/* @var $this \yii\web\View */
-/* @var $content string */
-
 use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
+
+/* @var $this \yii\web\View */
+/* @var $content string */
 
 AppAsset::register($this);
 ?>
@@ -26,63 +26,75 @@ AppAsset::register($this);
 <body>
 <?php $this->beginBody() ?>
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
+<header class="header">
+    <div class="header__wrapper  wrapper">
+        <div class="header__logo">
+            <a href="<?= Yii::$app->homeUrl ?>" title="Росатом">
+                <img src="../media/logo.jpg" alt="Росатом" />
+            </a>
+        </div>
+        <?php if (Yii::$app->user->isGuest): ?>
 
-    if (Yii::$app->user->isGuest) {
-        $menuItems = [
-            ['label' => 'Войти', 'url' => ['/site/login']]
-        ];
-    } else {
-        $user = Yii::$app->user->getIdentity()->getUser();
-        $menuItems = [
-            ['label' => 'Объявления', 'url' => ['invite/index']],
-            ['label' => 'Проекты', 'url' => ['project/index']],
-            ['label' => 'Запросы', 'url' => ['request/index']],
-            ['label' => 'Файлы', 'url' => ['file/index']],
-            [
-                'label' => $user->name . ' ' . $user->patronymic . ' ' . $user->surname,
-                'items' => [
-                    ['label' => 'Настройки', 'url' => ['/user/view', 'id' => $user->id]],
-                    ['label' => 'Выход', 'url' => ['/site/logout']],
-                ],
-            ],
-        ];
-    }
+        <div class="header__enter header__nav-item">
+            <?= Html::a('Войти', ['/site/login']) ?>
+        </div>
 
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Главная', 'url' => ['/site/index']],
-            ...$menuItems
-        ],
-    ]);
-    NavBar::end();
-    ?>
+        <?php else: $user = Yii::$app->user->getIdentity()->getUser(); ?>
+        <div class="header__layer"></div>
+        <div class="header__burg js-burg">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <div class="header__hide js-menu">
+            <nav class="header__nav nav">
+                <ul class="header__nav-left">
+                    <li class="header__nav-item">
+                        <?= Html::a('Объявления', ['invite/index']) ?>
+                    </li>
+                    <li class="header__nav-item">
+                        <?= Html::a('Проекты', ['project/index']) ?>
+                    </li>
+                    <li class="header__nav-item">
+                        <?= Html::a('Запросы', ['request/index']) ?>
+                    </li>
+                    <li class="header__nav-item">
+                        <?= Html::a('Файлы', ['file/index']) ?>
+                    </li>
+                    <li class="header__nav-item header__exit header__nav-item--light">
+                        <?= Html::a('Настройки', ['user/view', 'id' => $user->id]) ?>
+                        <?= Html::a('Выход', ['site/logout']) ?>
+                    </li>
+                </ul>
+            </nav>
+            <div class="header__right">
+                <div class="header__avatar-wrapper">
+                    <div class="header__avatar avatar">
+                        <a href="#"> </a>
+                    </div>
+                    <p><?= $user->name . ' ' . $user->surname ?></p>
+                </div>
 
-    <div class="container">
+                <div class="header__nav-right">
+                    <li class="header__nav-item header__nav-item--light">
+                        <?= Html::a('Настройки', ['user/view', 'id' => $user->id]) ?>
+                        <?= Html::a('Выход', ['site/logout']) ?>
+                    </li>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+    </div>
+
+</header>
+<div class="container">
+    <section >
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
         ]) ?>
-        <?= Alert::widget() ?>
         <?= $content ?>
-    </div>
+    </section>
 </div>
-
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; IT-animals, Hackatom - <?= date('Y') ?></p>
-
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
 
 <?php $this->endBody() ?>
 </body>

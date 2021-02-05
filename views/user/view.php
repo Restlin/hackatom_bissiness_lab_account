@@ -36,11 +36,13 @@ YiiAsset::register($this);
             [
                 'attribute'=>'image',
                 'format' => 'raw',
-                'value' => function($data) {
-                    $image = $data->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($data->image)) : '';
-                    if ($image) {
-                        return Html::img($image, ['style' => '...']);
-
+                'value' => function($model) {
+                    $stream = $model->image ? stream_get_contents($model->image) : false;
+                    if ($stream) {
+                        $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
+                        echo Html::img($image, ['style' => '...']);
+                    }else {
+                        echo Html::img('../media/123.png');
                     }
                     return '';
                 },

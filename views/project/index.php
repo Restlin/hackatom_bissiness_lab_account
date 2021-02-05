@@ -15,10 +15,10 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="project-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="content__button-wrapper">
 
-    <p>
-        <?= Html::a('Создать проект', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Создать проект', ['create'], ['class' => 'myButton myButton--green']) ?>
+
     </p>
 
     <?= ListView::widget([

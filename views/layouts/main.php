@@ -76,11 +76,12 @@ AppAsset::register($this);
                         <?= Html::beginTag('a', ['href' => Url::to(['user/view', 'id' => $user->id])]); ?>
 
                             <?php
-                                if ($user->image) {
-                                    $image = $user->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($user->image)) : '';
-                                    if ($image) {
-                                        echo Html::img($image, ['style' => '...']);
-                                    }
+                                $stream = $user->image ? stream_get_contents($user->image) : false;
+                                if ($stream) {
+                                    $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
+                                    echo Html::img($image, ['style' => '...']);
+                                }else {
+                                    echo Html::img('../media/123.png');
                                 }
                             ?>
                         <?= Html::endTag('a'); ?>

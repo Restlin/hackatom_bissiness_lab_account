@@ -184,12 +184,7 @@ function reloadCSS() {
 }
 
 module.exports = reloadCSS;
-},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../styles/global.scss":[function(require,module,exports) {
-var reloadCSS = require('_css_loader');
-
-module.hot.dispose(reloadCSS);
-module.hot.accept(reloadCSS);
-},{"./..\\media\\fonts\\Rosatom-Regular_W.woff2":[["Rosatom-Regular_W.85c1fa1d.woff2","../media/fonts/Rosatom-Regular_W.woff2"],"../media/fonts/Rosatom-Regular_W.woff2"],"./..\\media\\fonts\\Rosatom-Italic_W.woff2":[["Rosatom-Italic_W.35cb8c8d.woff2","../media/fonts/Rosatom-Italic_W.woff2"],"../media/fonts/Rosatom-Italic_W.woff2"],"./..\\media\\fonts\\Rosatom-Light_W.woff2":[["Rosatom-Light_W.836e5c66.woff2","../media/fonts/Rosatom-Light_W.woff2"],"../media/fonts/Rosatom-Light_W.woff2"],"./..\\media\\fonts\\Rosatom-Bold_W.woff2":[["Rosatom-Bold_W.8c1e4738.woff2","../media/fonts/Rosatom-Bold_W.woff2"],"../media/fonts/Rosatom-Bold_W.woff2"],"_css_loader":"../node_modules/parcel-bundler/src/builtins/css-loader.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./bundle-url":"../node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -394,4 +389,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../node_modules/parcel-bundler/src/builtins/hmr-runtime.js"], null)
-//# sourceMappingURL=/global.b6b87fd4.js.map
+//# sourceMappingURL=/projectProcess.js.map

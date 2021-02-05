@@ -114,7 +114,7 @@ class InviteController extends Controller
         $model->date = date('d.m.Y');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['project/view', 'id' => $model->project_id]);
         }
 
         return $this->render('_form', [

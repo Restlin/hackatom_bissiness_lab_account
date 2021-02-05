@@ -14,6 +14,10 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 
+use app\models\Project;
+use app\models\Invite;
+use app\models\ProjectRate;
+
 class SiteController extends Controller {
 
     private ?User $user = null;
@@ -70,7 +74,13 @@ class SiteController extends Controller {
      * @return string
      */
     public function actionIndex() {
-        return $this->render('index');
+        return $this->render('index', [
+            'projects' => Project::find()->count(),
+            'sums' => Project::find()->where(['invested' => true])->sum('finance') ?: 0,
+            'invites' => Invite::find()->count(),
+            'users' => User::find()->count(),
+            'rates' => ProjectRate::find()->count(),
+        ]);
     }
 
     /**

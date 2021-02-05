@@ -14,6 +14,8 @@ use dosamigos\datepicker\DatePicker;
 
     <?php $form = ActiveForm::begin(); ?>
 
+    <?= $form->field($model, 'image')->fileInput() ?>
+
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'about')->widget(CKEditor::class, [

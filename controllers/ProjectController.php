@@ -14,6 +14,7 @@ use app\models\ProjectRate;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * ProjectController implements the CRUD actions for Project model.
@@ -127,9 +128,19 @@ class ProjectController extends Controller
         $model->status_id = Status::DRAFT;
         $model->rating = 0;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $image = UploadedFile::getInstance($model, 'image');
+            if ($image) {
+                $model->image=file_get_contents($image->tempName);
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }*/
 
         return $this->render('create', [
             'model' => $model,
@@ -147,9 +158,19 @@ class ProjectController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post()) ) {
+            $image = UploadedFile::getInstance($model, 'image');
+            if ($image) {
+                $model->image=file_get_contents($image->tempName);
+            }
+            if ($model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
+
+        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->id]);
+        }*/
 
         return $this->render('update', [
             'model' => $model,

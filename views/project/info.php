@@ -30,6 +30,11 @@ use yii\web\View;
 
         <br>
         <div class=" content__item content__top">
+            <?php
+            $image = stream_get_contents($model->image);
+            echo Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+            ?>
+
             <p class="content__name"><?= $model->name ?></p>
             <div class="content__date">
                 <p class="content__date-label">Время исполнения:</p>

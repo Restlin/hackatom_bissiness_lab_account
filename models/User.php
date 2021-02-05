@@ -23,6 +23,7 @@ use Yii;
  * @property bool $active Активирован
  * @property string|null $firm Организация
  * @property string|null $about О себе
+ * @property string|null $image
  *
  * @property bool $isAdmin
  */
@@ -56,6 +57,7 @@ class User extends \yii\db\ActiveRecord {
             [['password_hash'], 'string', 'max' => 64],
             [['pwd_reset_token'], 'string', 'max' => 32],
             [['email'], 'unique'],
+            [['image'], 'string'],
         ];
     }
 
@@ -79,6 +81,7 @@ class User extends \yii\db\ActiveRecord {
             'active' => 'Активирован',
             'firm' => 'Организация',
             'about' => 'О себе',
+            'image' => 'Аватар',
         ];
     }
 

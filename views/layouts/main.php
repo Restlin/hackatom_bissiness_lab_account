@@ -4,6 +4,7 @@ use app\widgets\Alert;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
+use yii\helpers\Url;
 use yii\widgets\Breadcrumbs;
 use app\assets\AppAsset;
 
@@ -72,7 +73,15 @@ AppAsset::register($this);
             <div class="header__right">
                 <div class="header__avatar-wrapper">
                     <div class="header__avatar avatar">
-                        <a href="#"> </a>
+                        <?= Html::beginTag('a', ['href' => Url::to(['user/view', 'id' => $user->id])]); ?>
+
+                            <?php
+                                if ($user->image) {
+                                    $image = stream_get_contents($user->image);
+                                    echo Html::img('data:image/jpeg;charset=utf-8;base64,' . base64_encode($image), ['style' => '...']);
+                                }
+                            ?>
+                        <?= Html::endTag('a'); ?>
                     </div>
                     <p><?= $user->name . ' ' . $user->surname ?></p>
                 </div>

@@ -42,8 +42,6 @@ use yii\web\View;
 
         <div class=" content__item content__progressBar">
             <!--                Прогрессбар сюда-->
-            ПРОГРЕССБАР
-
             <?php
 
             echo Html::tag('div', 'Рейтинг развития: '. $model->rating.'%', ['style' => 'text-align: center; font-size: 18pt;']);
@@ -51,10 +49,10 @@ use yii\web\View;
             echo Progress::widget([
                 'percent' => $model->rating,
                 'barOptions' => ['class' => 'progress-bar-success'],
-                'options' => ['class' => 'active progress-striped', 'style' => 'margin-bottom: 5px;']
+                'options' => ['class' => 'active progress-striped', 'style' => 'margin: 10px 0;']
             ]);
             ?>
-            <div style="margin-bottom: 10px; overflow:auto;">
+            <div style="margin-bottom: 10px; overflow:auto; height: 25px;">
                 <?php
                 foreach($statuses as $code => $status) {
                     echo Html::tag('div', $status, [

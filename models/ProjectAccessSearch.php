@@ -4,13 +4,12 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\ProjectPart;
-use yii\data\Sort;
+use app\models\ProjectAccess;
 
 /**
- * ProjectPartSearch represents the model behind the search form of `app\models\ProjectPart`.
+ * ProjectAccessSearch represents the model behind the search form of `app\models\ProjectAccess`.
  */
-class ProjectPartSearch extends ProjectPart
+class ProjectAccessSearch extends ProjectAccess
 {
     /**
      * {@inheritdoc}
@@ -18,8 +17,7 @@ class ProjectPartSearch extends ProjectPart
     public function rules()
     {
         return [
-            [['id', 'project_id', 'part_id'], 'integer'],
-            [['ready'], 'boolean'],
+            [['id', 'project_id', 'user_id', 'role_id'], 'integer'],
         ];
     }
 
@@ -41,16 +39,13 @@ class ProjectPartSearch extends ProjectPart
      */
     public function search($params)
     {
-        $query = ProjectPart::find();
+        $query = ProjectAccess::find();
 
-
-        $sort = new Sort();
-        $sort->defaultOrder = ['id' => SORT_ASC];
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => false,
-            'sort' => $sort
         ]);
 
         $this->load($params);
@@ -65,8 +60,8 @@ class ProjectPartSearch extends ProjectPart
         $query->andFilterWhere([
             'id' => $this->id,
             'project_id' => $this->project_id,
-            'part_id' => $this->part_id,
-            'ready' => $this->ready,
+            'user_id' => $this->user_id,
+            'role_id' => $this->role_id,
         ]);
 
         return $dataProvider;

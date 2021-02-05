@@ -2,21 +2,17 @@
 
 namespace app\controllers;
 
-use app\models\RequestSearch;
 use Yii;
-use app\models\Project;
-use app\models\Status;
-use app\models\ProjectSearch;
-use app\models\ProjectPartSearch;
+use app\models\ProjectAccess;
 use app\models\ProjectAccessSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * ProjectController implements the CRUD actions for Project model.
+ * ProjectAccessController implements the CRUD actions for ProjectAccess model.
  */
-class ProjectController extends Controller
+class ProjectAccessController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -25,7 +21,7 @@ class ProjectController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::class,
+                'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -34,82 +30,41 @@ class ProjectController extends Controller
     }
 
     /**
-     * Lists all Project models.
+     * Lists all ProjectAccess models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new ProjectSearch();
+        $searchModel = new ProjectAccessSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'statusList' => Status::getList(),
-        ]);
-    }
-
-    private function renderProjectPartIndex(Project $project) {
-        $searchModel = new ProjectPartSearch();
-        $searchModel->project_id = $project->id;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->renderPartial('/project-part/index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    private function renderProjectAccessIndex(Project $project) {
-        $searchModel = new ProjectAccessSearch();
-        $searchModel->project_id = $project->id;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->renderPartial('/project-access/index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    private function renderRequestIndex(Project $project) {
-        $searchModel = new RequestSearch();
-        $searchModel->project_id = $project->id;
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        return '';
-        return $this->renderPartial('/request/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Project model.
+     * Displays a single ProjectAccess model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
     {
-        $project = $this->findModel($id);
         return $this->render('view', [
-            'model' => $project,
-            'statuses' => Status::getList(),
-            'projectPartIndex' => $this->renderProjectPartIndex($project),
-            'projectAccessIndex' => $this->renderProjectAccessIndex($project),
-            'requestIndex' => $this->renderRequestIndex($project),
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Project model.
+     * Creates a new ProjectAccess model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Project();
-        $model->status_id = Status::DRAFT;
-        $model->rating = 0;
+        $model = new ProjectAccess();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -121,7 +76,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Updates an existing Project model.
+     * Updates an existing ProjectAccess model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -141,7 +96,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Deletes an existing Project model.
+     * Deletes an existing ProjectAccess model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -155,15 +110,15 @@ class ProjectController extends Controller
     }
 
     /**
-     * Finds the Project model based on its primary key value.
+     * Finds the ProjectAccess model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Project the loaded model
+     * @return ProjectAccess the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Project::findOne($id)) !== null) {
+        if (($model = ProjectAccess::findOne($id)) !== null) {
             return $model;
         }
 

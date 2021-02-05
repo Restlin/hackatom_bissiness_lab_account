@@ -8,6 +8,7 @@ use yii\bootstrap\Progress;
 /* @var $model app\models\Project */
 /* @var $statuses array */
 /* @var $projectPartIndex string */
+/* @var $projectAccessIndex string */
 /* @var $requestIndex string */
 
 $this->title = $model->name;
@@ -34,7 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
                  ],
                  [
                      'label' => 'Команда',
-                     'content' => 'Команда',
+                     'content' => $projectAccessIndex,
                      'headerOptions' => ['role' => 'presentation'],
                  ],
                  [

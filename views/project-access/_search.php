@@ -4,11 +4,11 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model app\models\ProjectPartSearch */
+/* @var $model app\models\ProjectAccessSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="project-part-search">
+<div class="project-access-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
@@ -22,9 +22,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'project_id') ?>
 
-    <?= $form->field($model, 'part_id') ?>
+    <?= $form->field($model, 'user_id') ?>
 
-    <?= $form->field($model, 'ready')->checkbox() ?>
+    <?= $form->field($model, 'role_id') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

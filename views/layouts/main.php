@@ -63,6 +63,8 @@ AppAsset::register($this);
                     </li>
                     <li class="header__nav-item header__exit header__nav-item--light">
                         <?= Html::a('Настройки', ['user/view', 'id' => $user->id]) ?>
+                    </li>
+                    <li class="header__nav-item header__exit header__nav-item--light">
                         <?= Html::a('Выход', ['site/logout']) ?>
                     </li>
                 </ul>
@@ -78,6 +80,8 @@ AppAsset::register($this);
                 <div class="header__nav-right">
                     <li class="header__nav-item header__nav-item--light">
                         <?= Html::a('Настройки', ['user/view', 'id' => $user->id]) ?>
+                    </li>
+                    <li class="header__nav-item header__nav-item--light">
                         <?= Html::a('Выход', ['site/logout']) ?>
                     </li>
                 </div>

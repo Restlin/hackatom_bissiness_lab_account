@@ -10,13 +10,19 @@ use yii\widgets\Pjax;
 ?>
 <div class="project-access-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <p class="content__button-wrapper">
+        <?= Html::a('Пригласить', ['/request/autocreate', 'projectId' => $searchModel->project_id], ['class' => 'myButton myButton--blue']) ?>
+        &nbsp;
+        <?= Html::a('Подать объявление', ['/invite/autocreate', 'projectId' => $searchModel->project_id], ['class' => 'myButton myButton--blue']) ?>
+    </p>
 
     <?php Pjax::begin(); ?>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
+        'layout' => "\n{items}\n{pager}",
+        'itemOptions' => ['class' => 'card'],
+        'options' => ['class' => 'myGridProject'],
         'itemView' => 'item_view',
     ]) ?>
 

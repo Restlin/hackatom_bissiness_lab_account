@@ -2,6 +2,10 @@
 
 namespace app\controllers;
 
+use app\models\Project;
+use app\models\ProjectAccess;
+use app\models\Role;
+use app\models\User;
 use Yii;
 use app\models\Request;
 use app\models\RequestSearch;
@@ -14,6 +18,13 @@ use yii\filters\VerbFilter;
  */
 class RequestController extends Controller
 {
+    private ?User $user = null;
+
+    public function __construct($id, $module,
+                                $config = []) {
+        $this->user = Yii::$app->user->getIsGuest() ? null : Yii::$app->user->identity->getUser();
+        parent::__construct($id, $module, $config);
+    }
     /**
      * {@inheritdoc}
      */
@@ -37,12 +48,15 @@ class RequestController extends Controller
     {
         $searchModel = new RequestSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModel->executor_id = $this->user->id;
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
 
     /**
      * Displays a single Request model.
@@ -68,12 +82,56 @@ class RequestController extends Controller
         $model->load(Yii::$app->request->get());
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+            return $this->redirect(['/project/view', 'id' => $model->project_id]);
+        }
+        $user = new User();
+        $user->load(Yii::$app->request->get());
+
+        return $this->render('_form', [
+            'model' => $model,
+            'user' => $user,
+        ]);
+    }
+
+    public function actionAutocreate($projectId)
+    {
+        $project = Project::findOne($projectId);
+        if (!$project) {
+            throw new NotFoundHttpException('Проект не найден');
+        }
+        $model = new Request();
+        $model->project_id = $project->id;
+        $model->author_id = $this->user->id;
+        $user = new User();
+        $user->load(Yii::$app->request->post());
+        $foundUser = User::findOne(['email' => $user->email]);
+        if ($model->load(Yii::$app->request->post()) && $foundUser) {
+            $model->executor_id = $foundUser->id;
+            $model->user_id = $foundUser->id;
+            if ($model->save()) {
+                return $this->redirect(['/project/view', 'id' => $model->project_id]);
+            }
         }
 
         return $this->render('_form', [
             'model' => $model,
+            'user' => $user,
         ]);
+    }
+
+    public function actionExecute($id, $role)
+    {
+        $model = $this->findModel($id);
+        if ($role == Role::ASSISTANT) {
+            $access = new ProjectAccess();
+            $access->user_id = $model->user_id;
+            $access->project_id = $model->project_id;
+            $access->role_id = $role;
+            $access->save();
+
+        }
+        $model->delete();
+        $this->redirect(['index']);
     }
 
     /**

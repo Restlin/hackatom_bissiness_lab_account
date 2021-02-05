@@ -51,9 +51,11 @@ class ProjectAccessController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $model = $this->findModel($id);
+        $projectId = $model->project_id;
+        $model->delete();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['/project/view', 'id' => $projectId]);
     }
 
     /**

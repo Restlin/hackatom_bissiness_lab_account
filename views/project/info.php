@@ -31,10 +31,13 @@ use yii\web\View;
         <br>
         <div class=" content__item content__top">
             <?php
-            $image = $model->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($model->image)) : '';
-            if ($image) {
+            /*$stream = $model->image ? stream_get_contents($model->image) : false;
+            if ($stream) {
+                $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
                 echo Html::img($image, ['style' => '...']);
-            }
+            }else {
+                echo Html::img('../media/123.png');
+            }*/
             ?>
 
             <p class="content__name"><?= $model->name ?></p>

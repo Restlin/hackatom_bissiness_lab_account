@@ -16,9 +16,12 @@ use yii\widgets\ListView;
         <div class="card__wrapperAvatar">
             <div class="card__avatar">
                 <?php
-                    $image = $model->project->image ? 'data:image/jpeg;charset=utf-8;base64,' . base64_encode(stream_get_contents($model->project->image)) : '';
-                    if ($image) {
+                    $stream = $model->project->image ? stream_get_contents($model->project->image) : false;
+                    if ($stream) {
+                        $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
                         echo Html::img($image, ['style' => '...']);
+                    }else {
+                        echo Html::img('../media/123.png');
                     }
                 ?>
             </div>

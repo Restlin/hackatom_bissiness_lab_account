@@ -37,6 +37,10 @@ class ProjectService {
         }
     }
     
+    public static function canInvest(Project $project, User $user): bool {
+        return $project->status_id == Status::BUSINESS_PROJECT && $project->invested === null && $user->isStakeholder;
+    }
+    
     public static function canEdit(Project $project, User $user): bool {
         return $user->isAdmin || $project->getProjectAccesses()->andWhere(['user_id' => $user->id])->count() ? true : false;
     }

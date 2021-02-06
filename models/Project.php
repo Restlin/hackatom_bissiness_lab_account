@@ -68,7 +68,7 @@ class Project extends \yii\db\ActiveRecord
             'rating' => 'Рейтинг развития',
             'about' => 'Аннотация',
             'finance' => 'Требуемые финансы',
-            'invested' => 'Поддержка инвесторами',
+            'invested' => 'Поддержать инвестициями',
             'date_start' => 'Дата начала',
             'date_end' => 'Дата конца',
             'image' => 'Аватар',
@@ -79,7 +79,7 @@ class Project extends \yii\db\ActiveRecord
         if($insert && !Yii::$app->user->isGuest) {
             ProjectService::createAuthorAccess($this, Yii::$app->user->getIdentity()->getUser());
             ProjectService::createDefaultParts($this);
-        }
+        }        
         parent::afterSave($insert, $changedAttributes);
     }
 

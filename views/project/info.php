@@ -7,6 +7,7 @@ use yii\web\View;
 
 /* @var $this View */
 /* @var $model Project */
+/* @var $canInvest bool */
 /* @var $canEdit bool */
 /* @var $statuses array */
 
@@ -16,6 +17,10 @@ use yii\web\View;
 
         <p class="content__button-wrapper">
             <?= Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
+            &nbsp;
+            <?php if($canInvest) {
+                echo Html::a('Инвестиции', ['invest', 'id' => $model->id], ['class' => 'myButton myButton--blue']);                    
+            } ?>            
             &nbsp;
             <?php if($canEdit) {
                 echo Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']),
@@ -27,7 +32,7 @@ use yii\web\View;
                             'method' => 'post',
                         ],
                     ]);
-            } ?>            
+            } ?>
         </p>
 
 

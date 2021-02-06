@@ -74,7 +74,7 @@ class ProjectController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'canEdit' => $canEdit,
-            'canReady' => $this->user->isCurator,
+            'canReady' => $this->user && $this->user->isCurator,
         ]);
     }
 
@@ -122,10 +122,12 @@ class ProjectController extends Controller
     public function actionView($id, $tab = 'info')
     {
         $project = $this->findModel($id);
-        $canEdit = ProjectService::canEdit($project, $this->user);
+        $canEdit = $this->user && ProjectService::canEdit($project, $this->user);
+        $canInvest = $this->user && ProjectService::canInvest($project, $this->user);
         return $this->render('view', [
             'model' => $project,
             'tab' => $tab,
+            'canInvest' => $canInvest,
             'canEdit' => $canEdit,
             'statuses' => Status::getList(),
             'projectPartIndex' => $this->renderProjectPartIndex($project, $canEdit),
@@ -213,6 +215,29 @@ class ProjectController extends Controller
         return $this->render('update', [
             'model' => $model,
         ]);
+        
+    }
+    
+    /**
+     * Updates an existing Project model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionInvest($id)
+    {
+        $model = $this->findModel($id);                
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            ProjectService::recalcProject($model);
+            return $this->redirect(['view', 'id' => $model->id]);
+        }
+
+        return $this->render('invest', [
+            'model' => $model,
+        ]);
+        
     }
 
     /**

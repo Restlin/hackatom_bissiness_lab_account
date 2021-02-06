@@ -23,11 +23,11 @@ use yii\web\View;
     ]); ?>
 
     <div class="col-md-3">
-        <?= $form->field($model, 'name') ?>
+        <?= $form->field($model, 'surname') ?>
     </div>
 
     <div class="col-md-3">
-        <?= $form->field($model, 'surname') ?>
+        <?= $form->field($model, 'email') ?>
     </div>
 
     <div class="col-md-3">

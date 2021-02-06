@@ -66,6 +66,9 @@ class RegistrationForm extends Model {
      */
     public string $about = '';
 
+
+    public bool $privacy = false;
+
     /**
      * Пользователь
      * @var User|null
@@ -75,7 +78,7 @@ class RegistrationForm extends Model {
 
     public function rules() {
         return [
-            [['email', 'surname', 'name', 'password', 'password_confirm'], 'required'],
+            [['email', 'surname', 'name', 'password', 'password_confirm', 'privacy'], 'required'],
             [['email', 'surname', 'name', 'patronymic'], 'string', 'max' => 50],
             [['phone'], 'string', 'max' => 20],
             [['firm'], 'string', 'max' => 100],
@@ -85,10 +88,12 @@ class RegistrationForm extends Model {
             [['password_confirm'], 'string'],
             [['password_confirm'], 'validatePasswordConfirm'],
             [['email'], 'email'],
+            [['privacy'], 'boolean'],
             [['email'], 'filter', 'filter' => fn($email) => mb_strtolower(trim($email), 'UTF-8')],
             [['email'], 'validateEmail'],
             [['email'], 'unique', 'targetClass' => User::class, 'message' => 'Пользователь с таким email уже зарегистрирован!'],
             [['phone'], 'unique', 'targetClass' => User::class, 'message' => 'Пользователь с таким номером телефона уже зарегистрирован!'],
+            [['privacy'], 'in', 'range' => [true], 'message' => 'Необходимо принять "Политику конфиденциальности"'],
         ];
     }
 
@@ -119,6 +124,7 @@ class RegistrationForm extends Model {
             'password_confirm' => 'Повторить пароль',
             'firm' => 'Организация',
             'about' => 'О себе',
+            'privacy' => 'Согласен с <a href="http://www.innov-rosatom.ru/about/documents-innov-rosatom/privacy-policy/">Политикой конфиденциальности</a>'
         ];
     }
 

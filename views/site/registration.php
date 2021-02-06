@@ -51,6 +51,8 @@ $this->title = 'Регистрация';
     <?= $form->field($model, 'password')->passwordInput()->label($model->getAttributeLabel('password') . ' *') ?>
     <?= $form->field($model, 'password_confirm')->passwordInput()->label($model->getAttributeLabel('password_confirm') . ' *') ?>
 
+    <?= $form->field($model, 'privacy')->checkbox()->label($model->getAttributeLabel('privacy') . ' *') ?>
+
     <div class="col-md-12 hint-block text-center">
         Поля, отмеченные звездочкой (*), обязательны для заполнения.
     </div>

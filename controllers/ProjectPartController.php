@@ -64,6 +64,26 @@ class ProjectPartController extends Controller
             'model' => $model,
         ]);
     }
+    
+    /**
+     * Updates an existing ProjectPart model.
+     * If update is successful, the browser will be redirected to the 'view' page.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionReady($id)
+    {
+        $model = $this->findModel($id);
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['project/view', 'id' => $model->project_id]);
+        }
+
+        return $this->render('ready', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Finds the ProjectPart model based on its primary key value.

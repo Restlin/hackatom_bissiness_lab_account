@@ -30,7 +30,18 @@ use app\models\ProjectPart;
 
             [
                 'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}',
+                'template' => '{update} {ready}',
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a( '<span class="glyphicon glyphicon-pencil"></span>', $url, ['title' => 'Заполнить раздел', 'data-pjax' => '0']);
+                    },
+                    'ready' => function ($url, ProjectPart  $model) {
+                        if($model->ready) {
+                            return '';
+                        }
+                        return Html::a( '<span class="glyphicon glyphicon-ok"></span>', $url, ['title' => 'Проверить раздел', 'data-pjax' => '0']);
+                    },
+                ],
                 'controller' => 'project-part',
             ],
         ],

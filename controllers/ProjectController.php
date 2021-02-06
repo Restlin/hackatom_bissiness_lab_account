@@ -86,6 +86,7 @@ class ProjectController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->renderPartial('/project-access/index', [
+            'canInvite' => ProjectService::canInvite($project, $this->user),
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

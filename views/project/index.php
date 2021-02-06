@@ -21,6 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
     </p>
 
+    <?php echo $this->render('_search', ['model' => $searchModel, 'statusList' => [null => ''] + $statusList]); ?>
+
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'layout' => "\n{items}\n{pager}",

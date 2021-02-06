@@ -46,7 +46,7 @@ class ProjectSearch extends Project
         $query = Project::find();
 
         $sort = new Sort();
-        $sort->defaultOrder = ['id' => SORT_DESC];
+        $sort->defaultOrder = ['id' => SORT_DESC, 'rating' => SORT_DESC];
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

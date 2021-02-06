@@ -1,11 +1,15 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\ActiveForm;
+use yii\bootstrap\ActiveForm;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProjectSearch */
-/* @var $form yii\widgets\ActiveForm */
+/* @var $form ActiveForm */
+/* @var $statusList array */
+/* @var $typeList array */
+
+$typesList = [null => ''] + \app\models\Type::getList();
 ?>
 
 <div class="project-search">
@@ -13,33 +17,29 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        //'layout' => 'horizontal',
         'options' => [
             'data-pjax' => 1
         ],
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'name') ?>
-
-    <?= $form->field($model, 'status') ?>
-
-    <?= $form->field($model, 'rating') ?>
-
-    <?= $form->field($model, 'about') ?>
-
-    <?php // echo $form->field($model, 'finance') ?>
-
-    <?php // echo $form->field($model, 'invested')->checkbox() ?>
-
-    <?php // echo $form->field($model, 'date_start') ?>
-
-    <?php // echo $form->field($model, 'date_end') ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-outline-secondary']) ?>
+    <div class="col-md-3">
+        <?= $form->field($model, 'name') ?>
     </div>
+
+    <div class="col-md-3">
+        <?= $form->field($model, 'status_id')->dropDownList($statusList) ?>
+    </div>
+
+    <div class="col-md-3">
+        <?= $form->field($model, 'type_id')->dropDownList($typesList) ?>
+    </div>
+    <div class="col-md-3">
+        <p class="content__button-wrapper pull-left" style="margin-top: 23px;">
+            <?= Html::submitButton('Поиск', ['class' => 'myButton myButton--blue']) ?>
+        </p>
+    </div>
+
 
     <?php ActiveForm::end(); ?>
 

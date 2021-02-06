@@ -69,4 +69,13 @@ class Role extends \yii\db\ActiveRecord
     {
         return $this->hasMany(UserRole::class, ['role_id' => 'id']);
     }
+    
+    public static function getGlobalList(): array {
+        $models = Role::find()->where(['id' => [self::ADMIN, self::CURATOR, self::STAKEHOLDER]])->orderBy('id')->all();
+        $list = [];
+        foreach($models as $model) {
+            $list[$model->id] = $model->name;
+        }
+        return $list;
+    }
 }

@@ -54,7 +54,7 @@ class UserController extends Controller {
                         'actions' => ['index', 'delete', 'create'],
                         'allow' => true,
                         'roles' => ['@'],
-                        'matchCallback' => fn() => $this->user && $this->user->isAdmin,
+                        'matchCallback' => fn() => $this->user,
                     ],
                     [
                         'actions' => ['confirm', 'registration-success'],

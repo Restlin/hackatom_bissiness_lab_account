@@ -33,6 +33,7 @@ class UserRole extends \yii\db\ActiveRecord
             [['user_id', 'role_id'], 'required'],
             [['user_id', 'role_id'], 'default', 'value' => null],
             [['user_id', 'role_id'], 'integer'],
+            [['user_id', 'role_id'], 'unique', 'targetAttribute' => ['user_id', 'role_id'], 'message' => 'Такая роль у пользователя уже существует!'],
             [['role_id'], 'exist', 'skipOnError' => true, 'targetClass' => Role::class, 'targetAttribute' => ['role_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['user_id' => 'id']],
         ];
@@ -68,5 +69,18 @@ class UserRole extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::class, ['id' => 'user_id']);
+    }
+    
+    
+    public static function createRole(User $user, int $roleId): UserRole {
+        $userRole = UserRole::findOne(['user_id' => $user->id, 'role_id' => $roleId]);
+        if (!$userRole) {
+            $userRole = new UserRole();
+        }
+        $userRole->user_id = $user->id;
+        $userRole->role_id = $roleId;
+        $userRole->save();
+        
+        return $userRole;
     }
 }

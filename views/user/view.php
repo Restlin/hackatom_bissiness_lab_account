@@ -13,9 +13,21 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
+
+$roles = [];
+foreach($model->userRoles as $userRole) {
+    $roles[] = $userRole->role->name.' '. Html::a('X',
+            ['user-role/delete', 'id' => $userRole->id],
+            [
+                'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
+                'data-method' => 'POST',
+                'class' => 'btn btn-danger'
+            ]
+    );
+}
+$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
 ?>
 <div class="user-view">
-
     <p class="content__button-wrapper">
         &nbsp;
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
@@ -65,4 +77,24 @@ YiiAsset::register($this);
         </div>
     </div>
 
+    <?= DetailView::widget([
+        'model' => $model,
+        'attributes' => [
+
+            [
+                'label' => 'ФИО',
+                'value' => $model->name.' '.$model->surname
+            ],
+            [
+                'label' => 'Роли',
+                'value' => $roles ? implode(' ', $roles) : null,
+                'format' => 'raw',
+
+            ],
+            'email:email',
+            'phone',
+            'firm',
+            'about:ntext',
+        ],
+    ]) ?>
 </div>

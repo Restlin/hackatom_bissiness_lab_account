@@ -8,7 +8,7 @@ return [
         'patronymic' => 'Админович',
         'phone' => '+79100000000',
         'active' => true,
-        'password' => 'xt,ehfirf',
+        'password' => 'xt,ehfirf', //чебурашка
     ],
     'tokenLive' => 600,
 ];

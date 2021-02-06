@@ -23,13 +23,9 @@ class UserController extends Controller {
         $user->setAttributes($params['adminUser']);
         $user->password_hash = Yii::$app->security->generatePasswordHash($params['adminUser']['password']);
         if ($user->save()) {
-            $userRole = UserRole::findOne(['user_id' => $user->id, 'role_id' => Role::ADMIN]);
-            if (!$userRole) {
-                $userRole = new UserRole();
-            }
-            $userRole->user_id = $user->id;
-            $userRole->role_id = Role::ADMIN;
-            $userRole->save();
+            UserRole::createRole($user, Role::ADMIN);
+            UserRole::createRole($user, Role::CURATOR);
+            UserRole::createRole($user, Role::STAKEHOLDER);            
         }
     }
 

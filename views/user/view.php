@@ -13,26 +13,39 @@ $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 YiiAsset::register($this);
+
+$roles = [];
+foreach($model->userRoles as $userRole) {
+    $roles[] = $userRole->role->name.' '. Html::a('X', 
+            ['user-role/delete', 'id' => $userRole->id], 
+            [
+                'data-confirm' => 'Вы уверены, что хотите удалить эту роль?', 
+                'data-method' => 'POST',
+                'class' => 'btn btn-danger'
+            ]
+    );
+}
+$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
 ?>
 <div class="user-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <!--<?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы уверены?',
                 'method' => 'post',
             ],
         ]) ?>
+        !-->
     </p>
 
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
             [
                 'attribute'=>'image',
                 'format' => 'raw',
@@ -47,10 +60,18 @@ YiiAsset::register($this);
                     return '';
                 },
             ],
-            'surname',
-            'name',
-            'phone',
+            [
+                'label' => 'ФИО',
+                'value' => $model->name.' '.$model->surname
+            ],
+            [
+                'label' => 'Роли',
+                'value' => $roles ? implode(' ', $roles) : null,
+                'format' => 'raw',
+                
+            ],
             'email:email',
+            'phone',
             'firm',
             'about:ntext',
         ],

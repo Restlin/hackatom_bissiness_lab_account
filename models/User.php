@@ -3,6 +3,8 @@
 namespace app\models;
 
 use borales\extensions\phoneInput\PhoneInputValidator;
+use app\models\UserRole;
+use app\models\Role;
 use Yii;
 
 /**
@@ -26,6 +28,9 @@ use Yii;
  * @property string|null $image
  *
  * @property bool $isAdmin
+ * @property bool $isCurator
+ * @property bool $isStakeholder
+ * @property UserRole[] $userRoles
  */
 class User extends \yii\db\ActiveRecord {
 
@@ -87,7 +92,37 @@ class User extends \yii\db\ActiveRecord {
 
     public function getIsAdmin(): bool
     {
-        return (bool) UserRole::find()->andWhere(['user_id' => $this->id, 'role_id' => Role::ADMIN])->count();
+        return $this->getUserRoles()->andWhere(['role_id' => Role::ADMIN])->count() ? true : false;        
+    }
+    
+    public function getIsCurator(): bool
+    {
+        return $this->getUserRoles()->andWhere(['role_id' => Role::CURATOR])->count() ? true : false;
+    }
+    
+    public function getIsStakeholder(): bool
+    {
+        return $this->getUserRoles()->andWhere(['role_id' => Role::STAKEHOLDER])->count() ? true : false;        
+    }
+    
+    /**
+     * Gets query for [[UserRoles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUserRoles()
+    {
+        return $this->hasMany(UserRole::class, ['user_id' => 'id']);
+    }
+    
+    /**
+     * Gets query for [[UserRoles]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getRoles()
+    {
+        return $this->hasMany(Role::class, ['id' => 'role_id'])->via('userRoles');
     }
 
 }

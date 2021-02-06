@@ -12,20 +12,51 @@ use yii\helpers\Html;
 
 $this->title = 'Главная';
 ?>
+<div class="myPreview js-preview">
+    <header class="myPreview__header">Сейчас на сервисе</header>
+    <div
+            class="myCounter myCounter--65 myPreview__myCounter js-leftPreviewElement"
+    >
+        <div class="MyCounter__textWrapper">
+            <?=Html::a("{$projects} проектов", ['project/index']) ?>
+        </div>
+    </div>
 
-<h1>Сейчас на сервисе:</h1>
+    <div
+            class="myCounter myCounter--80 myCounter--rev myPreview__myCounter js-rightPreviewElement"
+    >
+        <div class="MyCounter__textWrapper MyCounter__textWrapper--rev">
+            Уже проинвестировано <?=$sums ?> рублей
+        </div>
+    </div>
 
-<div class="site-index">
+    <div
+            class="myCounter myCounter--65 myPreview__myCounter js-leftPreviewElement"
+    >
+        <div class="MyCounter__textWrapper">
+            <?=Html::a("{$invites} объявлений", ['invite/index']) ?>
+        </div>
+    </div>
 
-    <div><?=Html::a($projects, ['project/index']) ?> проектов</div>
+    <div
+            class="myCounter myCounter--65 myCounter--rev myPreview__myCounter js-rightPreviewElement"
+    >
+        <div class="MyCounter__textWrapper">
+            <?=Html::a("{$users} пользователей", ['user/index']) ?>
+        </div>
+    </div>
 
-    <div> Уже проинвестировано <?=$sums ?> рублей </div>
-
-    <div><?=Html::a($invites, ['invite/index']) ?> объявлений</div>
-
-    <div><?=Html::a($users, ['user/index']) ?> пользователей</div>
-
-    <div>У проектов <?=$rates ?> оценок</div>
+    <div class="myCounter__buttonWrapper">
+        <div
+                class="myCounter myCounter--50 myCounter myPreview__myCounter js-leftPreviewElement"
+        >
+            <div class="MyCounter__textWrapper">
+                У проектов <?=$rates ?> оценок
+            </div>
+            <?= Html::a('Начать сейчас', ['project/create'], ['class' => 'js-buttonPreview myCounter__myButton myButton myButton--blue myButton--BIG']) ?>
+        </div>
+    </div>
+    <div class="buttonPreview__line">
+        <?= Html::a('Начать сейчас', ['project/create'], ['class' => 'buttonPreview  myButton myButton--blue myButton--BIG']) ?>
+    </div>
 </div>
-
-

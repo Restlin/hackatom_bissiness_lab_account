@@ -116,6 +116,23 @@ class ProjectController extends Controller
             'requestIndex' => $this->renderRequestIndex($project),
         ]);
     }
+    
+    /**
+     * Displays a single Project model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionPdf($id)
+    {
+        $project = $this->findModel($id);
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => Yii::getAlias('@runtime/mpdf')]);        
+        
+        $html = $this->renderPartial('pdf', ['project' => $project]);
+        $mpdf->WriteHTML($html);         
+        $mpdf->Output($project->name, \Mpdf\Output\Destination::DOWNLOAD); // Output a PDF file directly to the browser
+        
+    }
 
     /**
      * Creates a new Project model.

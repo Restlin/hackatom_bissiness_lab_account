@@ -13,9 +13,8 @@ use dosamigos\ckeditor\CKEditor;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'content')->widget(CKEditor::class, [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
+    <?= $form->field($model, 'content')->widget(CKEditor::class, [        
+        'preset' => 'full'
     ]) ?>
 
     <?= $form->field($model, 'ready')->checkbox() ?>

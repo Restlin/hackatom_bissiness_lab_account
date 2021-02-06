@@ -109,7 +109,7 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getProjectAccesses()
     {
-        return $this->hasMany(ProjectAccess::class, ['project_id' => 'id']);
+        return $this->hasMany(ProjectAccess::class, ['project_id' => 'id'])->orderBy('id');
     }
 
     /**

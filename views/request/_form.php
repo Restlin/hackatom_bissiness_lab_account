@@ -5,6 +5,7 @@ use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this View */
 /* @var $model Request */
@@ -32,7 +33,10 @@ $this->params['breadcrumbs'][] = $this->title;
 
         <?php endif; ?>
 
-        <?= $form->field($model, 'comment')->textarea(['rows' => 6]) ?>
+        <?= $form->field($model, 'comment')->widget(CKEditor::class, [
+            'options' => ['rows' => 6],
+            'preset' => 'basic'
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton($user->email ? 'Отправить запрос' : 'Пригласить', ['class' => 'btn btn-success']) ?>

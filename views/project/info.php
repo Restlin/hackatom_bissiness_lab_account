@@ -14,7 +14,7 @@ use yii\web\View;
 
 
         <p class="content__button-wrapper">
-            <?= Html::a('PDF', ['view', 'id' => $model->id], ['class' => 'myButton myButton--red']) ?>
+            <?= Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
             &nbsp;
             <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
             &nbsp;

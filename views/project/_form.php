@@ -19,8 +19,7 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'about')->widget(CKEditor::class, [
-        'options' => ['rows' => 6],
-        'preset' => 'basic'
+        'preset' => 'full'
     ]) ?>
 
     <?= $form->field($model, 'finance')->textInput() ?>

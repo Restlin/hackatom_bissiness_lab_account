@@ -69,7 +69,7 @@ class ProjectRateController extends Controller
         $model->user_id = Yii::$app->user->getIdentity()->getUser()->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['project/view', 'id' => $model->project_id]);
+            return $this->redirect(['project/view', 'id' => $model->project_id, 'tab' => 'rate']);
         }
 
         return $this->render('create', [

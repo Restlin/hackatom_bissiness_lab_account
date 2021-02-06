@@ -91,6 +91,8 @@ class UserController extends Controller {
         }
         return $this->render('view', [
             'model' => $model,
+            'canEdit' => $this->user->isAdmin || $id == $this->user->id,
+            'canEditRoles' => $this->user->isAdmin
         ]);
     }
 

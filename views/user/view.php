@@ -4,10 +4,11 @@ use app\models\User;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\web\YiiAsset;
-use yii\widgets\DetailView;
 
 /* @var $this View */
 /* @var $model User */
+/* @var $canEdit bool */
+/* @var $canEditRoles bool */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => 'Пользователи', 'url' => ['index']];
@@ -21,31 +22,26 @@ foreach($model->userRoles as $userRole) {
         [
             'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
             'data-method' => 'POST',
-        ])));
-    /*$roles[] = $userRole->role->name.' '. Html::a('X',
-            ['user-role/delete', 'id' => $userRole->id],
-            [
-                'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
-                'data-method' => 'POST',
-                'class' => 'btn btn-danger'
-            ]
-    );*/
+        ])));    
 }
-//$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
 ?>
 <div class="user-view">
     <p class="content__button-wrapper">
-        <?= Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'myButton myButton--green']) ?>
+        <?php if($canEditRoles) {
+            echo Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'myButton myButton--green']);
+        } ?>        
         &nbsp;
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
-        &nbsp;
+        <?php if($canEdit) {
+            echo Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']);
+        } ?>        
+        <!--&nbsp;
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'myButton myButton--red',
             'data' => [
                 'confirm' => 'Вы уверены, что хотите удалить?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ]) ?>!-->
     </p>
 
 

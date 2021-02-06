@@ -126,6 +126,7 @@ class UserController extends Controller {
      */
     public function actionUpdate(int $id) {
         $model = $this->findModel($id);
+        $stream = $model->image ? stream_get_contents($model->image) : false;
         if ($model->id != $this->user->id && !$model->isAdmin) {
             throw new ForbiddenHttpException('У Вас нет доступа к данному профилю!');
         }
@@ -133,6 +134,8 @@ class UserController extends Controller {
             $image = UploadedFile::getInstance($model, 'image');
             if ($image) {
                 $model->image=file_get_contents($image->tempName);
+            } elseif ($stream) {
+                $model->image = $stream;
             }
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

@@ -8,6 +8,7 @@ use app\services\ProjectService;
 use app\models\User;
 use app\models\Project;
 use app\models\Status;
+use app\models\Type;
 use app\models\ProjectSearch;
 use app\models\ProjectPartSearch;
 use app\models\ProjectAccessSearch;
@@ -56,6 +57,7 @@ class ProjectController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProjectSearch();
+        $searchModel->public = true;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -163,6 +165,7 @@ class ProjectController extends Controller
     {
         $model = new Project();
         $model->status_id = Status::DRAFT;
+        $model->public = true;
         $model->rating = 0;
 
         if ($model->load(Yii::$app->request->post()) ) {
@@ -181,6 +184,7 @@ class ProjectController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'types' => Type::getList(),
         ]);
     }
 
@@ -214,6 +218,7 @@ class ProjectController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'types' => Type::getList(),
         ]);
         
     }

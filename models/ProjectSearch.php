@@ -18,10 +18,10 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['id', 'status_id', 'rating'], 'integer'],
+            [['id', 'status_id', 'type_id', 'rating'], 'integer'],
             [['name', 'about', 'date_start', 'date_end'], 'safe'],
             [['finance'], 'number'],
-            [['invested'], 'boolean'],
+            [['invested', 'public'], 'boolean'],
         ];
     }
 
@@ -65,8 +65,10 @@ class ProjectSearch extends Project
         $query->andFilterWhere([
             'id' => $this->id,
             'status_id' => $this->status_id,
+            'type_id' => $this->type_id,
+            'public' => $this->public,
             'rating' => $this->rating,
-            'finance' => $this->finance,
+            'finance' => $this->finance,            
             'invested' => $this->invested,
             'date_start' => $this->date_start,
             'date_end' => $this->date_end,

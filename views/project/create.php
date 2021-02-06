@@ -4,6 +4,7 @@ use yii\helpers\Html;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
+/* @var $types array */
 
 $this->title = 'Создать проект';
 $this->params['breadcrumbs'][] = ['label' => 'Проекты', 'url' => ['index']];
@@ -15,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'types' => $types,
     ]) ?>
 
 </div>

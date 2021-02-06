@@ -45,7 +45,8 @@ use yii\widgets\ListView;
         <p class="card__additional "><?= $model->date_start ?> - <?= $model->date_end ?></p>
         <p class="card__additional">Рейтинг развития:&nbsp; <span><?= $model->rating ?>%</span></p>
         <p class="card__additional">Оценки:&nbsp; <span><?= $rateAvg ?: 0 ?></span> <span class="star"><img src="../media/star.svg" alt=""></span> (<?= $rate ?>)</p>
-        <p class="card__additional">Статус:&nbsp; <span><?= $statusName ?></span></p>
+        <p class="card__additional">Тип:&nbsp; <span><?= $model->type->name ?></span></p>
+        <p class="card__additional">Статус:&nbsp; <span><?= $statusName ?></span></p>        
         <p class="card__additional">Инвестиция:&nbsp; <span><?=$model->finance ?>р</span></p>
     </div>
 

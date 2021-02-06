@@ -8,6 +8,7 @@ use dosamigos\datepicker\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $types array */
 ?>
 
 <div class="project-form">
@@ -17,6 +18,8 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'image')->fileInput() ?>
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
+    
+    <?= $form->field($model, 'type_id')->dropDownList($types) ?>
 
     <?= $form->field($model, 'about')->widget(CKEditor::class, [
         'preset' => 'full'
@@ -31,6 +34,8 @@ use dosamigos\datepicker\DatePicker;
     <?= $form->field($model, 'date_end')->widget(DatePicker::class, [
         'language' => 'ru',
     ]) ?>
+    
+    <?= $form->field($model, 'public')->checkbox() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

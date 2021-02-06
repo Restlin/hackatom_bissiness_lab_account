@@ -11,6 +11,8 @@ use app\services\ProjectService;
  * @property int $id
  * @property string $name Комментарий
  * @property int $status_id Статус
+ * @property int $type_id Тип
+ * @property bool|null $public Публичный
  * @property int $rating Рейтинг
  * @property string|null $about Описание
  * @property float $finance Требуемые финансы
@@ -19,7 +21,8 @@ use app\services\ProjectService;
  * @property string $date_end Дата конца
  * @property string|null $image
  *
- * @property Status $status
+ * @property Status $status статус
+ * @property Type $type тип
  * @property Invite[] $invites
  * @property ProjectAccess[] $projectAccesses
  * @property ProjectPart[] $projectParts
@@ -45,10 +48,13 @@ class Project extends \yii\db\ActiveRecord
         return [
             [['name', 'status_id', 'date_start', 'date_end'], 'required'],
             [['status_id', 'rating'], 'default', 'value' => null],
-            [['status_id', 'rating'], 'integer'],
+            [['status_id', 'rating', 'type_id'], 'integer'],
+            [['type_id'], 'default', 'value' => 1],
+            [['status_id'], 'exist', 'skipOnError' => true, 'targetClass' => Status::class, 'targetAttribute' => ['status_id' => 'id']],
+            [['type_id'], 'exist', 'skipOnError' => true, 'targetClass' => Type::class, 'targetAttribute' => ['type_id' => 'id']],
             [['about'], 'string'],
             [['finance'], 'number'],
-            [['invested'], 'boolean'],
+            [['invested', 'public'], 'boolean'],
             [['date_start', 'date_end'], 'safe'],
             [['name'], 'string', 'max' => 200],
             [['name'], 'unique'],
@@ -65,6 +71,8 @@ class Project extends \yii\db\ActiveRecord
             'id' => 'Код',
             'name' => 'Наименование',
             'status_id' => 'Статус',
+            'type_id' => 'Тип',
+            'public' => 'Публичный',
             'rating' => 'Рейтинг развития',
             'about' => 'Аннотация',
             'finance' => 'Требуемые финансы',
@@ -90,6 +98,15 @@ class Project extends \yii\db\ActiveRecord
      */
     public function getStatus() {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
+    }
+    
+    /**
+     * Gets query for [[Type]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType() {
+        return $this->hasOne(Type::class, ['id' => 'type_id']);
     }
 
     /**

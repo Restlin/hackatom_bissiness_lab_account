@@ -38,7 +38,7 @@ use yii\web\View;
 
         <br>
 <div class=" content__item content__top">
-    <p class="content__name"> <?= $model->name ?></p>
+    <p class="content__name"> <?= $model->public ? 'публичный' : 'приватный' ?> проект: <?= $model->name ?> (тип: <?= $model->type->name ?>)</p>
     <div class="content__line" style="margin-top:10px">
         <div class="content__avatar-wrapper">
             <?php

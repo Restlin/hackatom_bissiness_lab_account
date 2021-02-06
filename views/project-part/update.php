@@ -21,9 +21,9 @@ $this->params['breadcrumbs'][] = 'Редактирование раздела';
 
         <?php $form = ActiveForm::begin(); ?>
 
-        <?= $form->field($model, 'content')->widget(CKEditor::class, [        
+        <?= $form->field($model, 'content')->widget(CKEditor::class, [
             'preset' => 'full'
-        ]) ?>        
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

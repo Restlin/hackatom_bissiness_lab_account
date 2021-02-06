@@ -35,6 +35,14 @@ use yii\helpers\Html;
             <?php endif; ?>
         </p>
     </div>
+    <div class="card__textWrapper">
+        <p>Комментарий куратора:</p>
+        <div>
+            <p>
+                <?= mb_strlen($model->comment) > 0 ? $model->comment : 'Отсутствует' ?>
+            </p>
+        </div>
+    </div>
     <div class="card__buttons">        
         <?php 
         if(!$model->ready && $canEdit) {

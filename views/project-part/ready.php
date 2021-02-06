@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\ProjectPart */
@@ -21,6 +22,10 @@ $this->params['breadcrumbs'][] = 'Проверка раздела';
         <?php $form = ActiveForm::begin(); ?>    
 
         <?= $form->field($model, 'ready')->checkbox() ?>
+        
+        <?= $form->field($model, 'comment')->widget(CKEditor::class, [        
+            'preset' => 'basic'
+        ]) ?>
 
         <div class="form-group">
             <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>

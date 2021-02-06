@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\widgets\ListView;
 use yii\widgets\Pjax;
 use app\models\ProjectPart;
 /* @var $this yii\web\View */
@@ -14,27 +15,13 @@ use app\models\ProjectPart;
 
     <?php Pjax::begin(); ?>
 
-    <?= GridView::widget([
+    <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'layout' => '{items}',
-        'filterModel' => null,
-        'columns' => [
-            [
-                'attribute' => 'part_id',
-                'value' => function(ProjectPart $model) {
-                    return $model->part->name;
-                }
-            ],
-            'content:raw',
-            'ready:boolean',
-
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{update}',
-                'controller' => 'project-part',
-            ],
-        ],
-    ]); ?>
+        'layout' => "\n{items}\n{pager}",
+        'itemOptions' => ['class' => 'card'],
+        'options' => ['class' => 'myGridProject'],
+        'itemView' => 'itemView',
+    ]) ?>
 
     <?php Pjax::end(); ?>
 

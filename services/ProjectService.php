@@ -36,6 +36,10 @@ class ProjectService {
             $currentPart->save();
         }
     }
+    
+    public static function canEdit(Project $project, User $user): bool {
+        return $user->isAdmin || $project->getProjectAccesses()->andWhere(['user_id' => $user->id])->count() ? true : false;
+    }
 
     public static function recalcProject(Project $project) {
         $current = 0;

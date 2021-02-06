@@ -4,6 +4,8 @@ namespace app\controllers;
 
 use app\models\RequestSearch;
 use Yii;
+use app\services\ProjectService;
+use app\models\User;
 use app\models\Project;
 use app\models\Status;
 use app\models\ProjectSearch;
@@ -21,6 +23,17 @@ use yii\web\UploadedFile;
  */
 class ProjectController extends Controller
 {
+    private ?User $user = null;
+
+    public function __construct(
+        $id,
+        $module,
+        $config = []
+    ) {
+        $this->user = Yii::$app->user->getIsGuest() ? null : Yii::$app->user->identity->getUser();
+        parent::__construct($id, $module, $config);
+    }
+    
     /**
      * {@inheritdoc}
      */
@@ -52,7 +65,7 @@ class ProjectController extends Controller
         ]);
     }
 
-    private function renderProjectPartIndex(Project $project) {
+    private function renderProjectPartIndex(Project $project, $canEdit) {
         $searchModel = new ProjectPartSearch();
         $searchModel->project_id = $project->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -60,6 +73,8 @@ class ProjectController extends Controller
         return $this->renderPartial('/project-part/index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'canEdit' => $canEdit,
+            'canReady' => $this->user->isCurator,
         ]);
     }
 
@@ -104,13 +119,16 @@ class ProjectController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionView($id)
+    public function actionView($id, $tab = 'info')
     {
         $project = $this->findModel($id);
+        $canEdit = ProjectService::canEdit($project, $this->user);
         return $this->render('view', [
             'model' => $project,
+            'tab' => $tab,
+            'canEdit' => $canEdit,
             'statuses' => Status::getList(),
-            'projectPartIndex' => $this->renderProjectPartIndex($project),
+            'projectPartIndex' => $this->renderProjectPartIndex($project, $canEdit),
             'projectRateIndex' => $this->renderProjectRateIndex($project),
             'projectAccessIndex' => $this->renderProjectAccessIndex($project),
             'requestIndex' => $this->renderRequestIndex($project),

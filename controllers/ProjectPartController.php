@@ -57,7 +57,7 @@ class ProjectPartController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['project/view', 'id' => $model->project_id]);
+            return $this->redirect(['project/view', 'id' => $model->project_id, 'tab' => 'part']);
         }
 
         return $this->render('update', [
@@ -77,7 +77,7 @@ class ProjectPartController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['project/view', 'id' => $model->project_id]);
+            return $this->redirect(['project/view', 'id' => $model->project_id, 'tab' => 'part']);
         }
 
         return $this->render('ready', [

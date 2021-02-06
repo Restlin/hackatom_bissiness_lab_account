@@ -6,6 +6,7 @@ use yii\bootstrap\Progress;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Project */
+/* @var $canEdit bool */
 /* @var $statuses array */
 /* @var $projectPartIndex string */
 /* @var $projectAccessIndex string */
@@ -26,23 +27,26 @@ $this->params['breadcrumbs'][] = $this->title;
              'items' => [
                  [
                      'label' => 'Информация',
-                     'content' => $this->render('info', ['model' => $model, 'statuses' => $statuses]),
-                     'active' => true,
+                     'content' => $this->render('info', ['model' => $model, 'statuses' => $statuses, 'canEdit' => $canEdit]),
+                     'active' => $tab == 'info',
                      'headerOptions' => ['role' => 'presentation'],
                  ],
                  [
                      'label' => 'Разделы',
                      'content' => $projectPartIndex,
+                     'active' => $tab == 'part',
                      'headerOptions' => ['role' => 'presentation'],
                  ],
                  [
                      'label' => 'Команда',
                      'content' => $projectAccessIndex,
+                     'active' => $tab == 'access',
                      'headerOptions' => ['role' => 'presentation'],
                  ],
                  [
                      'label' => 'Оценки',
                      'content' => $projectRateIndex,
+                     'active' => $tab == 'rate',
                      'headerOptions' => ['role' => 'presentation'],
                  ],
              ],

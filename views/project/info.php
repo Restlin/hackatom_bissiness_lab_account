@@ -7,6 +7,7 @@ use yii\web\View;
 
 /* @var $this View */
 /* @var $model Project */
+/* @var $canEdit bool */
 /* @var $statuses array */
 
 ?>
@@ -16,15 +17,17 @@ use yii\web\View;
         <p class="content__button-wrapper">
             <?= Html::a('PDF', ['pdf', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
             &nbsp;
-            <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
-            &nbsp;
-            <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-                'class' => 'myButton myButton--red',
-                'data' => [
-                    'confirm' => 'Вы уверены, что хотите удалить проект?',
-                    'method' => 'post',
-                ],
-            ]) ?>
+            <?php if($canEdit) {
+                echo Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']),
+                    '&nbsp;',
+                    Html::a('Удалить', ['delete', 'id' => $model->id], [
+                        'class' => 'myButton myButton--red',
+                        'data' => [
+                            'confirm' => 'Вы уверены, что хотите удалить проект?',
+                            'method' => 'post',
+                        ],
+                    ]);
+            } ?>            
         </p>
 
 

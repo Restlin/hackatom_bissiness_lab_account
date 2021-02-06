@@ -16,7 +16,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
+        'layout' => "\n{items}\n{pager}",
+        'itemOptions' => ['class' => 'card'],
+        'options' => ['class' => 'myGridProject'],
         'itemView' => 'itemView',
     ]) ?>
 

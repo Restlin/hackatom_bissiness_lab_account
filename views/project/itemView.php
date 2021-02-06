@@ -38,7 +38,7 @@ use yii\widgets\ListView;
         <?php
             $rateAvg = ProjectRate::find()->andWhere(['project_id' => $model->id])->average('rate');
             $rateCnt = ProjectRate::find()->andWhere(['project_id' => $model->id])->count();
-            $rate = Html::a($rateCnt, ['/project/view', 'id' => $model->id]);
+            $rate = Html::a($rateCnt, ['/project/view', 'id' => $model->id, 'tab' => 'rate']);
             $statuses = Status::getList();
             $statusName = $statuses[$model->status_id] ?: 'черновик';
         ?>

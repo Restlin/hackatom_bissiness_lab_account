@@ -10,6 +10,7 @@ use Yii;
 use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use yii\web\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\Response;
 use yii\web\UploadedFile;
@@ -127,7 +128,7 @@ class UserController extends Controller {
     public function actionUpdate(int $id) {
         $model = $this->findModel($id);
         $stream = $model->image ? stream_get_contents($model->image) : false;
-        if ($model->id != $this->user->id && !$model->isAdmin) {
+        if (!$model->isAdmin && $model->id != $this->user->id) {
             throw new ForbiddenHttpException('У Вас нет доступа к данному профилю!');
         }
         if ($model->load(Yii::$app->request->post()) ) {

@@ -14,6 +14,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">
 
+    <?php echo $this->render('_search', ['model' => $searchModel]); ?>
+
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
         'layout' => "\n{items}\n{pager}",

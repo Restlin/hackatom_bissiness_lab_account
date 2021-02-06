@@ -16,19 +16,26 @@ YiiAsset::register($this);
 
 $roles = [];
 foreach($model->userRoles as $userRole) {
-    $roles[] = $userRole->role->name.' '. Html::a('X',
+    $roles[] = Html::tag('div', Html::tag('p', $userRole->role->name) .
+    Html::tag('span', Html::a('удалить', ['user-role/delete', 'id' => $userRole->id],
+        [
+            'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
+            'data-method' => 'POST',
+        ])));
+    /*$roles[] = $userRole->role->name.' '. Html::a('X',
             ['user-role/delete', 'id' => $userRole->id],
             [
                 'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
                 'data-method' => 'POST',
                 'class' => 'btn btn-danger'
             ]
-    );
+    );*/
 }
-$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
+//$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
 ?>
 <div class="user-view">
     <p class="content__button-wrapper">
+        <?= Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'myButton myButton--green']) ?>
         &nbsp;
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
         &nbsp;
@@ -56,7 +63,10 @@ $roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' =>
                 }
                 ?>
             </div>
-
+            <div class="content__date">
+                <p class="content__date-label-preview">Роли:</p>
+                <?= $roles ? implode(' ', $roles) : null ?>
+            </div>
         </div>
     </div>
 
@@ -77,24 +87,4 @@ $roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' =>
         </div>
     </div>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-
-            [
-                'label' => 'ФИО',
-                'value' => $model->name.' '.$model->surname
-            ],
-            [
-                'label' => 'Роли',
-                'value' => $roles ? implode(' ', $roles) : null,
-                'format' => 'raw',
-
-            ],
-            'email:email',
-            'phone',
-            'firm',
-            'about:ntext',
-        ],
-    ]) ?>
 </div>

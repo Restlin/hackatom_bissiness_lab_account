@@ -28,8 +28,16 @@ use yii\helpers\Html;
             <div class="card__info">
                 <div class="card__wrapperAvatar">
                     <div class="card__avatar">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/American_Beaver.jpg"
-                             alt="">
+
+                        <?php
+                        $stream = $model->user->image ? stream_get_contents($model->user->image) : false;
+                        if ($stream) {
+                            $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
+                            echo Html::img($image, ['style' => '...']);
+                        }else {
+                            echo Html::img('../media/123.png');
+                        }
+                        ?>
                     </div>
                 </div>
                 <p class="card__label"><?= UserHelper::fioLink($model->user); ?></p>

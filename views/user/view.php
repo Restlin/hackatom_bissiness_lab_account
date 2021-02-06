@@ -16,65 +16,75 @@ YiiAsset::register($this);
 
 $roles = [];
 foreach($model->userRoles as $userRole) {
-    $roles[] = $userRole->role->name.' '. Html::a('X', 
-            ['user-role/delete', 'id' => $userRole->id], 
+    $roles[] = Html::tag('div', Html::tag('p', $userRole->role->name) .
+    Html::tag('span', Html::a('удалить', ['user-role/delete', 'id' => $userRole->id],
+        [
+            'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
+            'data-method' => 'POST',
+        ])));
+    /*$roles[] = $userRole->role->name.' '. Html::a('X',
+            ['user-role/delete', 'id' => $userRole->id],
             [
-                'data-confirm' => 'Вы уверены, что хотите удалить эту роль?', 
+                'data-confirm' => 'Вы уверены, что хотите удалить эту роль?',
                 'data-method' => 'POST',
                 'class' => 'btn btn-danger'
             ]
-    );
+    );*/
 }
-$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
+//$roles[] = Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'btn btn-success']);
 ?>
 <div class="user-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <!--<?= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+    <p class="content__button-wrapper">
+        <?= Html::a('Добавить роль', ['user-role/create', 'userId' => $model->id], ['class' => 'myButton myButton--green']) ?>
+        &nbsp;
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
+        &nbsp;
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+            'class' => 'myButton myButton--red',
             'data' => [
-                'confirm' => 'Вы уверены?',
+                'confirm' => 'Вы уверены, что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
-        !-->
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            [
-                'attribute'=>'image',
-                'format' => 'raw',
-                'value' => function($model) {
-                    $stream = $model->image ? stream_get_contents($model->image) : false;
-                    if ($stream) {
-                        $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
-                        echo Html::img($image, ['style' => '...']);
-                    }else {
-                        echo Html::img('../media/123.png');
-                    }
-                    return '';
-                },
-            ],
-            [
-                'label' => 'ФИО',
-                'value' => $model->name.' '.$model->surname
-            ],
-            [
-                'label' => 'Роли',
-                'value' => $roles ? implode(' ', $roles) : null,
-                'format' => 'raw',
-                
-            ],
-            'email:email',
-            'phone',
-            'firm',
-            'about:ntext',
-        ],
-    ]) ?>
+
+    <div class=" content__item content__top">
+        <p class="content__name"><?= $model->surname ?> <?= $model->name ?></p>
+        <div class="content__line" style="margin-top:10px">
+            <div class="content__avatar-wrapper">
+                <?php
+                $stream = $model->image ? stream_get_contents($model->image) : false;
+                if ($stream) {
+                    $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
+                    echo Html::img($image, ['style' => '...']);
+                }else {
+                    echo Html::img('../media/123.png');
+                }
+                ?>
+            </div>
+            <div class="content__date">
+                <p class="content__date-label-preview">Роли:</p>
+                <?= $roles ? implode(' ', $roles) : null ?>
+            </div>
+        </div>
+    </div>
+
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('phone') ?>: <span> <?= $model->phone ?></span></p>
+    </div>
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('email') ?>: <span> <?= $model->email ?></span></p>
+    </div>
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('firm') ?>: <span> <?= $model->firm ?></span></p>
+    </div>
+
+    <div class="content__item content__info">
+        <header>О себе:</header>
+        <div class="content__infoMain">
+            <?= $model->about ?>
+        </div>
+    </div>
 
 </div>

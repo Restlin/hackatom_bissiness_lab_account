@@ -16,44 +16,53 @@ YiiAsset::register($this);
 ?>
 <div class="user-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
+    <p class="content__button-wrapper">
+        &nbsp;
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'myButton myButton--blue']) ?>
+        &nbsp;
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+            'class' => 'myButton myButton--red',
             'data' => [
-                'confirm' => 'Вы уверены?',
+                'confirm' => 'Вы уверены, что хотите удалить?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            [
-                'attribute'=>'image',
-                'format' => 'raw',
-                'value' => function($model) {
-                    $stream = $model->image ? stream_get_contents($model->image) : false;
-                    if ($stream) {
-                        $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
-                        echo Html::img($image, ['style' => '...']);
-                    }else {
-                        echo Html::img('../media/123.png');
-                    }
-                    return '';
-                },
-            ],
-            'surname',
-            'name',
-            'phone',
-            'email:email',
-            'firm',
-            'about:ntext',
-        ],
-    ]) ?>
+
+    <div class=" content__item content__top">
+        <p class="content__name"><?= $model->surname ?> <?= $model->name ?></p>
+        <div class="content__line" style="margin-top:10px">
+            <div class="content__avatar-wrapper">
+                <?php
+                $stream = $model->image ? stream_get_contents($model->image) : false;
+                if ($stream) {
+                    $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
+                    echo Html::img($image, ['style' => '...']);
+                }else {
+                    echo Html::img('../media/123.png');
+                }
+                ?>
+            </div>
+
+        </div>
+    </div>
+
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('phone') ?>: <span> <?= $model->phone ?></span></p>
+    </div>
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('email') ?>: <span> <?= $model->email ?></span></p>
+    </div>
+    <div class=" content__item price">
+        <p><?= $model->getAttributeLabel('firm') ?>: <span> <?= $model->firm ?></span></p>
+    </div>
+
+    <div class="content__item content__info">
+        <header>О себе:</header>
+        <div class="content__infoMain">
+            <?= $model->about ?>
+        </div>
+    </div>
 
 </div>

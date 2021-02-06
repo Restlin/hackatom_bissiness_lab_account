@@ -29,26 +29,31 @@ use yii\web\View;
 
 
         <br>
-        <div class=" content__item content__top">
+<div class=" content__item content__top">
+    <p class="content__name"> <?= $model->name ?></p>
+    <div class="content__line" style="margin-top:10px">
+        <div class="content__avatar-wrapper">
             <?php
-            /*$stream = $model->image ? stream_get_contents($model->image) : false;
+            $stream = $model->image ? stream_get_contents($model->image) : false;
             if ($stream) {
                 $image = 'data:image/jpeg;charset=utf-8;base64,' . base64_encode($stream);
                 echo Html::img($image, ['style' => '...']);
             }else {
                 echo Html::img('../media/123.png');
-            }*/
+            }
             ?>
-
-            <p class="content__name"><?= $model->name ?></p>
-            <div class="content__date">
-                <p class="content__date-label">Время исполнения:</p>
-                <div>
-                    <p><?= $model->date_start ?> — <?= $model->date_end ?></p>
-                </div>
-            </div>
-
+            <br>
         </div>
+        <div class="content__date">
+            <p class="content__date-label-preview">Время исполнения:</p>
+            <div>
+                <p><?= $model->date_start ?> — <?= $model->date_end ?></p>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
 
         <div class=" content__item content__progressBar">
             <!--                Прогрессбар сюда-->

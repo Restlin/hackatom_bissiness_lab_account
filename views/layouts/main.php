@@ -30,7 +30,7 @@ AppAsset::register($this);
 <header class="header">
     <div class="header__wrapper  wrapper">
         <div class="header__logo">
-            <a href="<?= Yii::$app->homeUrl ?>" title="Росатом">
+            <a href="https://www.rosatom.ru" title="Росатом">
                 <img src="../media/logo.jpg" alt="Росатом" />
             </a>
         </div>
@@ -51,6 +51,9 @@ AppAsset::register($this);
             <nav class="header__nav nav">
                 <ul class="header__nav-left">
                     <li class="header__nav-item">
+                        <?= Html::a('Главная', ['site/index']) ?>
+                    </li>
+                    <li class="header__nav-item">
                         <?= Html::a('Объявления', ['invite/index']) ?>
                     </li>
                     <li class="header__nav-item">
@@ -58,6 +61,9 @@ AppAsset::register($this);
                     </li>
                     <li class="header__nav-item">
                         <?= Html::a('Запросы', ['request/index']) ?>
+                    </li>
+                    <li class="header__nav-item">
+                        <?= Html::a('Пользователи', ['user/index']) ?>
                     </li>
                     <!--<li class="header__nav-item">
                         <?= Html::a('Файлы', ['file/index']) ?>

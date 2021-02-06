@@ -57,7 +57,9 @@ class ProjectController extends Controller
     public function actionIndex()
     {
         $searchModel = new ProjectSearch();
-        $searchModel->public = true;
+        if(!$this->user->isAdmin) {
+            $searchModel->public = true;
+        }        
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [

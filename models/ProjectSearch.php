@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Project;
+use app\models\ProjectAccess;
 use yii\data\Sort;
 
 /**
@@ -12,6 +13,7 @@ use yii\data\Sort;
  */
 class ProjectSearch extends Project
 {
+    public $userId = null;
     /**
      * {@inheritdoc}
      */
@@ -60,13 +62,22 @@ class ProjectSearch extends Project
             // $query->where('0=1');
             return $dataProvider;
         }
+        
+        if($this->userId) {
+            
+        }
+        if($this->public && $this->userId) {
+            $ids = ProjectAccess::find()->where(['user_id' => $this->userId])->select(['project_id'])->column();
+            $query->andWhere(['AND', ['public' => true] , ['in', 'id', $ids]]);
+        } elseif($this->public) {
+            $query->andWhere(['public' => true]);
+        }
 
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'status_id' => $this->status_id,
-            'type_id' => $this->type_id,
-            'public' => $this->public,
+            'type_id' => $this->type_id,            
             'rating' => $this->rating,
             'finance' => $this->finance,            
             'invested' => $this->invested,

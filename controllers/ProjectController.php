@@ -192,11 +192,14 @@ class ProjectController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $stream = $model->image ? stream_get_contents($model->image) : false;
 
         if ($model->load(Yii::$app->request->post()) ) {
             $image = UploadedFile::getInstance($model, 'image');
             if ($image) {
                 $model->image=file_get_contents($image->tempName);
+            } elseif($stream) {
+                $model->image = $stream;
             }
             if ($model->save()) {
                 return $this->redirect(['view', 'id' => $model->id]);

@@ -49,9 +49,7 @@ use yii\widgets\ListView;
             <?= $model->comment ?>
         </div>
     </div>
-    <br>
     <div class="card__buttons">
-        <br/>
         <?= Html::a('Принять', ['execute', 'id' => $model->id, 'role' => Role::ASSISTANT], ['class' => 'myButton myButton--green']) ?>
         <?= Html::a('Отклонить', ['execute', 'id' => $model->id, 'role' => false], ['class' => 'myButton myButton--red']) ?>
     </div>

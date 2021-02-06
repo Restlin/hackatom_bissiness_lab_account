@@ -16,16 +16,20 @@ use yii\widgets\Pjax;
 
     <div>Средняя оценка проекта: <?= $rateAvg ?> на основании <?= $dataProvider->getTotalCount() ?> оценок</div>
     <?php if($canRate) { ?>
-    <p>
-        <?= Html::a('Оценить', ['project-rate/create', 'projectId' => $searchModel->project_id], ['class' => 'btn btn-success']) ?>
-    </p>
+          <p class="content__button-wrapper">
+
+            <?= Html::a('Оценить', ['project-rate/create', 'projectId' => $searchModel->project_id], ['class' => 'myButton myButton--green']) ?>
+
+        </p>
     <?php } ?>
 
     <?php Pjax::begin(); ?>
 
     <?= ListView::widget([
         'dataProvider' => $dataProvider,
-        'itemOptions' => ['class' => 'item'],
+        'layout' => "\n{items}\n{pager}",
+        'itemOptions' => ['class' => 'card'],
+        'options' => ['class' => 'myGridProject'],
         'itemView' => 'item_view',
     ]) ?>
 

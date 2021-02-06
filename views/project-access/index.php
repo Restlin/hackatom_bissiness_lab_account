@@ -26,6 +26,7 @@ use yii\widgets\Pjax;
         'itemOptions' => ['class' => 'card'],
         'options' => ['class' => 'myGridProject'],
         'itemView' => 'item_view',
+        'viewParams' => ['canDelete' => $canInvite],
     ]) ?>
 
     <?php Pjax::end(); ?>

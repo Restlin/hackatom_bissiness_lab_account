@@ -4,6 +4,7 @@ use app\helpers\UserHelper;
 use app\models\Role;
 use yii\helpers\Html;
 /* @var $model ProjectAccess */
+/* @var $canDelete bool */
 ?>
 
     <div class="card">
@@ -13,7 +14,7 @@ use yii\helpers\Html;
                 <span><?= $model->user->firm ?></span>
             </div>
             <div class="card__head-item">
-                <?php if ($model->role_id === Role::ASSISTANT): ?>
+                <?php if ($canDelete && $model->role_id === Role::ASSISTANT): ?>
                 <?= Html::a('<span class="glyphicon glyphicon-remove " style="color:currentColor" aria-hidden="true"></span>', ['project-access/delete', 'id' => $model->id], ['class' => 'myButton myButton--white', 'data' => [
                         'confirm' => 'Вы уверены, что хотите удалить?',
                         'method' => 'post',

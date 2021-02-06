@@ -38,7 +38,7 @@ class ProjectService {
     }
     
     public static function canInvest(Project $project, User $user): bool {
-        return $project->status_id == Status::BUSINESS_PROJECT && $project->invested === null && $user->isStakeholder;
+        return $project->rating == 100 && $project->invested === null && $user->isStakeholder;
     }
     
     public static function canInvite(Project $project, User $user): bool {
